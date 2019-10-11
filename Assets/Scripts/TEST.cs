@@ -15,7 +15,7 @@ public class TEST : MonoBehaviour
     public Color offBackgroundColor = Color.blue;
     public Color onBackgroundColor = Color.red;
 
-    const float totalHandleMoveLength = 38f;
+    const float totalHandleMoveLength = 58f;
     float halfMoveLength = totalHandleMoveLength / 2;
     private bool isOn;          //스위치 온/오프 상태
 
