@@ -8,8 +8,9 @@ public class GYSwitch : MonoBehaviour
 {
     public Action<bool> switchIOnAction;
 
-    public RectTransform buttontrans;
-    private RectTransform goalTrans;
+    private RectTransform buttonStartPosition;
+
+    private Vector2 buttonGoalPosition;
 
     private Color tmpSwitchColor;
     public Color switchColor;
@@ -19,17 +20,32 @@ public class GYSwitch : MonoBehaviour
     Vector2 goalDistanceMax;
     Vector2 goalDistanceMin;
 
-    private bool isOn=false;
     private bool check = false;
+    private float switchWidth;
+    public bool isOn;
     public float duration;
 
     private void Awake()
     {
-        goalTrans = GetComponent<RectTransform>();
+        buttonStartPosition = GameObject.Find("JHWSwitch").GetComponent<RectTransform>();
+
+        if(isOn)
+        {
+            switchWidth = this.GetComponent<RectTransform>().sizeDelta.x;
+            buttonStartPosition.sizeDelta = new Vector2(switchWidth, -switchWidth);
+    
+        }
+        else
+        {
+
+        }
+
+        distanceMax.Set(buttonStartPosition.sizeDelta.x / 2, 0);
+        distanceMin.Set(buttonStartPosition.sizeDelta.y, 0);
+
         tmpSwitchColor = GetComponent<Image>().color;
 
-        distanceMax.Set(goalTrans.sizeDelta.x/2, 0);
-        distanceMin.Set(goalTrans.sizeDelta.y , 0);
+    
         goalDistanceMax = Vector2.zero;
         goalDistanceMin = Vector2.zero;
 
@@ -60,8 +76,8 @@ public class GYSwitch : MonoBehaviour
         
         for (float i =0;i<100;i++)
         {
-            buttontrans.offsetMax = Vector2.Lerp(goalDistanceMax, distanceMax, i * 0.01f);
-            buttontrans.offsetMin = Vector2.Lerp(goalDistanceMin, distanceMin, i * 0.01f);
+            buttonStartPosition.offsetMax = Vector2.Lerp(goalDistanceMax, distanceMax, i * 0.01f);
+            buttonStartPosition.offsetMin = Vector2.Lerp(goalDistanceMin, distanceMin, i * 0.01f);
             yield return new WaitForSeconds((duration * 0.01f));
         }
 
@@ -75,8 +91,8 @@ public class GYSwitch : MonoBehaviour
         }
         else
         {
-            distanceMax.Set(goalTrans.sizeDelta.x / 2, 0);
-            distanceMin.Set(goalTrans.sizeDelta.y, 0);
+            distanceMax.Set(buttonStartPosition.sizeDelta.x / 2, 0);
+            distanceMin.Set(buttonStartPosition.sizeDelta.y, 0);
         }
         check = false;
         switchIOnAction(isOn);
