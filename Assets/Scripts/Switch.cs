@@ -13,11 +13,12 @@ public class SwitchButtonBackground
     [Range(0, 2)]
     public float backgroundWidth = 1f;
     [Range(0, 2)]
-    public float backgroundHeight = 1f;
+    public int backgroundHeight = 1;
 
     [Header("Icon")]
     public bool backgroundIconUse;
     public Sprite onIcon;
+
     [Range(0, 2)]
     public float onIconHeight;
     [Range(0, 2)]
@@ -59,10 +60,10 @@ public class SwitchButton
 }
 
 [ExecuteInEditMode]
-public class TEST : MonoBehaviour
+public class Switch : MonoBehaviour
 {
     [SerializeField]
-    private SwitchButtonBackground switchButtonBackground;
+    public SwitchButtonBackground switchButtonBackground;
 
     private RectTransform switchBackground;
     private float switchWidth;
@@ -183,7 +184,7 @@ public class TEST : MonoBehaviour
             else offSwitchButtonIcon.gameObject.SetActive(false);
         }
     }
-
+    /*
     private void Update()
     {
 #if UNITY_EDITOR
@@ -222,7 +223,7 @@ public class TEST : MonoBehaviour
         }
 #endif
     }
-
+    */
     public void onClickSwitch()
     {
         isOn = !isOn;

@@ -680,9 +680,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   switchButtonBackground:
-    backgroundWidth: 1
+    backgroundWidth: 1.01
     backgroundHeight: 1
-    backgroundIconUse: 1
+    backgroundIconUse: 0
     onIcon: {fileID: 21300110, guid: 568ae798622abc94a8fa660e323c84de, type: 3}
     onIconHeight: 0
     offIconWidth: 0
