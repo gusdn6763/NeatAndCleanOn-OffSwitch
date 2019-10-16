@@ -1,87 +1,226 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.UI;
+﻿//using System;
+//using System.Collections;
+//using UnityEngine;
+//using UnityEngine.UI;
 
-public class GYSwitch : MonoBehaviour
-{
-    public Action<bool> switchIOnAction;
+//[System.Serializable]
+//public class SwitchButtonBackgroundColor
+//{
+//    public Color offColor = Color.white;
+//    public Color onColor = Color.white;
+//}
 
-    public RectTransform buttontrans;
-    private RectTransform goalTrans;
+//[System.Serializable]
+//public class SwitchButtonBackgroundIcon
+//{
+//    public bool backgroundIconUse;
+//    public Sprite onIcon;
+//    public Sprite offIcon;
+//}
 
-    private Color tmpSwitchColor;
-    public Color switchColor;
+//[System.Serializable]
+//public class SwitchButtonColor
+//{
+//    public bool buttonColorUse;
+//    public Color onColor = Color.white;
+//    public Color offColor = Color.white;
+//}
 
-    Vector2 distanceMax;
-    Vector2 distanceMin;
-    Vector2 goalDistanceMax;
-    Vector2 goalDistanceMin;
+//[System.Serializable]
+//public class SwitchButtonIcon
+//{
+//    public bool buttonIconUse;
+//    public Sprite onIcon;
+//    public Sprite offIcon;
+//}
 
-    private bool isOn=false;
-    private bool check = false;
-    public float duration;
+//[ExecuteInEditMode]
+//public class GYSwitch : MonoBehaviour
+//{
+//    [SerializeField]
+//    private SwitchButtonBackgroundColor switchButtonBackgroundColor;
+//    private Image backgrounImage;
 
-    private void Awake()
-    {
-        goalTrans = GetComponent<RectTransform>();
-        tmpSwitchColor = GetComponent<Image>().color;
+//    [SerializeField]
+//    private SwitchButtonBackgroundIcon switchButtonBackgroundIcon;
+//    private Image onBackgroundSwitchIcon;
+//    private Image offBackgroundSwitchIcon;
 
-        distanceMax.Set(goalTrans.sizeDelta.x/2, 0);
-        distanceMin.Set(goalTrans.sizeDelta.y , 0);
-        goalDistanceMax = Vector2.zero;
-        goalDistanceMin = Vector2.zero;
+//    [SerializeField]
+//    private SwitchButtonColor switchButtonColor;
 
-        switchColor.a = 1f;
-    }
+//    [SerializeField]
+//    private SwitchButtonIcon switchButtonIcon;
+//    private Image onSwitchButtonIcon;
+//    private Image offSwitchButtonIcon;
 
-    public void onClickSwitch()
-    {
-        if (check == false)
-        {
-            isOn = !isOn;
-            check = true;
+//    Coroutine moveHandleCoroutine;
+//    Coroutine changeBackgroundColorCoroutine;
 
-            if (isOn)
-            {
-                this.gameObject.GetComponent<Image>().color = switchColor;
-            }
-            else
-            {
-                this.gameObject.GetComponent<Image>().color = tmpSwitchColor;
-            }
-            StartCoroutine(Move());
-        }
-    }
+//    private RectTransform buttonStartPosition;
 
-    IEnumerator Move( )
-    {
-        
-        for (float i =0;i<100;i++)
-        {
-            buttontrans.offsetMax = Vector2.Lerp(goalDistanceMax, distanceMax, i * 0.01f);
-            buttontrans.offsetMin = Vector2.Lerp(goalDistanceMin, distanceMin, i * 0.01f);
-            yield return new WaitForSeconds((duration * 0.01f));
-        }
+//    private float switchWidth;
+//    public bool isOn;
 
-        goalDistanceMax = distanceMax;
-        goalDistanceMin = distanceMin;
+//    [Range(0, 3)]
+//    public float moveDuration = 3f;
 
-        if(isOn)
-        {
-            distanceMin = Vector2.zero;
-            distanceMax = Vector2.zero;
-        }
-        else
-        {
-            distanceMax.Set(goalTrans.sizeDelta.x / 2, 0);
-            distanceMin.Set(goalTrans.sizeDelta.y, 0);
-        }
-        check = false;
-        switchIOnAction(isOn);
-    }
+//    private void Awake()
+//    {
+//        backgrounImage = GetComponent<Image>();
 
+//        onBackgroundSwitchIcon = transform.GetChild(0).GetComponent<Image>();
+//        offBackgroundSwitchIcon = transform.GetChild(1).GetComponent<Image>();
+
+//        buttonStartPosition = transform.GetChild(2).GetComponent<RectTransform>();
+
+//        onSwitchButtonIcon = buttonStartPosition.GetChild(0).GetComponent<Image>();
+//        offSwitchButtonIcon = buttonStartPosition.GetChild(1).GetComponent<Image>();
+
+//        switchWidth = GetComponent<RectTransform>().sizeDelta.x / 2;
+
+//        SwitchStateCheck();
+//    }
+
+//    private void SwitchStateCheck()
+//    {
+//        if (isOn)
+//        {
+//            backgrounImage.color = switchButtonBackgroundColor.onColor;
+//            buttonStartPosition.offsetMax = new Vector2(switchWidth, 0);
+//            buttonStartPosition.offsetMin = new Vector2(switchWidth, 0);
+//        }
+
+//        if (switchButtonBackgroundIcon.backgroundIconUse)
+//        {
+//            onBackgroundSwitchIcon.sprite = switchButtonBackgroundIcon.onIcon;
+//            offBackgroundSwitchIcon.sprite = switchButtonBackgroundIcon.offIcon;
+
+//            onBackgroundSwitchIcon.gameObject.SetActive(true);
+//            offBackgroundSwitchIcon.gameObject.SetActive(true);
+//        }
+
+//        if (switchButtonIcon.buttonIconUse)
+//        {
+//            onSwitchButtonIcon.sprite = switchButtonIcon.onIcon;
+//            offSwitchButtonIcon.sprite = switchButtonIcon.offIcon;
+
+//            CheckSwitchButtonIcon();
+//        }
+//    }
+
+//    private void CheckSwitchButtonIcon()
+//    {
+//        if (isOn)
+//        {
+//            onSwitchButtonIcon.gameObject.SetActive(true);
+//            offSwitchButtonIcon.gameObject.SetActive(false);
+//        }
+//        else
+//        {
+//            onSwitchButtonIcon.gameObject.SetActive(false);
+//            offSwitchButtonIcon.gameObject.SetActive(true);
+//        }
+//    }
+
+//    private void Update()
+//    {
+//        SwitchStateCheck();
+
+//        if (!isOn)
+//        {
+//            backgrounImage.color = switchButtonBackgroundColor.offColor;
+//            buttonStartPosition.offsetMax = new Vector2(0, 0);
+//            buttonStartPosition.offsetMin = new Vector2(0, 0);
+//        }
+
+//        if (switchButtonBackgroundIcon.backgroundIconUse)
+//        {
+//            onBackgroundSwitchIcon.gameObject.SetActive(false);
+//            offBackgroundSwitchIcon.gameObject.SetActive(false);
+//        }
+
+//        if (!switchButtonIcon.buttonIconUse)
+//        {
+//            onSwitchButtonIcon.gameObject.SetActive(false);
+//            offSwitchButtonIcon.gameObject.SetActive(false);
+//        }
+//    }
     
+//    public void onClickSwitch()
+//    {
+//        isOn = !isOn;
 
-}
+//        CheckSwitchButtonIcon();
+
+//        Vector2 fromPositionRight = new Vector2(buttonStartPosition.offsetMax.x, 0);
+//        Vector2 fromPositionLeft = new Vector2(buttonStartPosition.offsetMin.x, 0);
+
+//        Vector2 toPositionRight = (isOn) ? new Vector2(switchWidth, 0) : new Vector2(0, 0);
+//        Vector2 toPositionLeft = (isOn) ? new Vector2(switchWidth, 0) : new Vector2(0, 0);
+
+//        Vector2 distanceRight = toPositionRight - fromPositionRight;
+//        Vector2 distanceLeft = toPositionLeft - fromPositionLeft;
+
+//        float ratio = Mathf.Abs((distanceRight.x + distanceLeft.x) / 2) / switchWidth;
+
+//        float duration = moveDuration * ratio;
+
+//        if (moveHandleCoroutine != null)
+//        {
+//            StopCoroutine(moveHandleCoroutine);
+//            moveHandleCoroutine = null;
+//        }
+//        moveHandleCoroutine = StartCoroutine(moveHandle(fromPositionRight, fromPositionLeft, toPositionRight, toPositionLeft, duration));
+
+//        Color fromColor = backgrounImage.color;
+//        Color toColor = (isOn) ? switchButtonBackgroundColor.onColor : switchButtonBackgroundColor.offColor;
+
+//        if (changeBackgroundColorCoroutine != null)
+//        {
+//            StopCoroutine(changeBackgroundColorCoroutine);
+//            changeBackgroundColorCoroutine = null;
+//        }
+//        changeBackgroundColorCoroutine = StartCoroutine(changeBackgroundColor(fromColor, toColor, duration));
+
+//    }
+
+//    IEnumerator moveHandle(Vector2 fromPositionRight, Vector2 fromPositionLeft, Vector2 toPositionRight, Vector2 toPositionLeft, float duration)
+//    {
+//        float currentTime = 0f;
+//        while (currentTime <= duration)
+//        {
+//            float t = currentTime / duration;
+//            if (float.IsNaN(t))
+//            {
+//                t = 1;
+//            }
+//            Vector2 newPositionRight = Vector2.Lerp(fromPositionRight, toPositionRight, t);
+//            Vector2 newPositionLeft = Vector2.Lerp(fromPositionLeft, toPositionLeft, t);
+//            buttonStartPosition.offsetMax = newPositionRight;
+//            buttonStartPosition.offsetMin = newPositionLeft;
+
+//            currentTime += Time.deltaTime;
+//            yield return null;
+//        }
+//    }
+
+//    IEnumerator changeBackgroundColor(Color fromColor, Color toColor, float duration)
+//    {
+//        float currentTime = 0f;
+//        while (currentTime < duration)
+//        {
+//            float t = currentTime / duration;
+//            if (float.IsNaN(t))
+//            {
+//                t = 1;
+//            }
+//            Color newColor = Color.Lerp(fromColor, toColor, t);
+
+//            backgrounImage.color = newColor;
+
+//            currentTime += Time.deltaTime;
+//            yield return null;
+//        }
+//    }
+//}

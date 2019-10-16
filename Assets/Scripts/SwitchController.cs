@@ -36,26 +36,10 @@ public class SwitchController : MonoBehaviour, IGYSwitch
 
 public class SwitchController : MonoBehaviour
 {
-    public GYSwitch bgmSwitch;
-
     AudioSource audioSource;
 
     private void Awake()
     {
         audioSource = GetComponent<AudioSource>();
-    }
-    private void Start()
-    {
-        bgmSwitch.switchIOnAction = (isOn) =>
-        {
-            if (isOn == true)
-            {
-                audioSource.Play();
-            }
-            else
-            {
-                audioSource.Stop();
-            }
-        };
     }
 }
