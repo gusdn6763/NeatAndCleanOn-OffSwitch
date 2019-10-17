@@ -680,27 +680,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   switchButtonBackground:
-    backgroundWidth: 1.01
+    backgroundWidth: 1
     backgroundHeight: 1
-    backgroundIconUse: 0
-    onIcon: {fileID: 21300110, guid: 568ae798622abc94a8fa660e323c84de, type: 3}
-    onIconHeight: 0
-    offIconWidth: 0
-    offIcon: {fileID: 21300100, guid: 568ae798622abc94a8fa660e323c84de, type: 3}
+    backgroundIconUse: 1
+    onIcon: {fileID: 21300018, guid: 568ae798622abc94a8fa660e323c84de, type: 3}
+    ofnIconWidth: 0
+    onIconHeight: 1
+    offIconWidth: 1
+    offIcon: {fileID: 21300004, guid: 568ae798622abc94a8fa660e323c84de, type: 3}
     onIconWidth: 0
     offIconHeight: 0
     onColor: {r: 1, g: 1, b: 1, a: 1}
-    offColor: {r: 1, g: 1, b: 1, a: 1}
-  switchButton:
-    buttonWidth: 1
-    buttonHeight: 1
-    buttonStartPosition: 1
-    buttonIconUse: 1
-    onIcon: {fileID: 0}
-    offIcon: {fileID: 21300136, guid: 568ae798622abc94a8fa660e323c84de, type: 3}
-    iconScale: 1
-    onColor: {r: 1, g: 1, b: 1, a: 1}
-    offColor: {r: 1, g: 1, b: 1, a: 1}
+    offColor: {r: 0.995283, g: 1, b: 0.9961199, a: 1}
   isOn: 0
   moveDuration: 1
   switchScale: 1
@@ -717,7 +708,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.514151, g: 1, b: 0.5980778, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -811,7 +802,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1315183388
 RectTransform:
   m_ObjectHideFlags: 0
@@ -851,7 +842,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300100, guid: 568ae798622abc94a8fa660e323c84de, type: 3}
+  m_Sprite: {fileID: 21300110, guid: 568ae798622abc94a8fa660e323c84de, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -921,7 +912,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1687898584
 RectTransform:
   m_ObjectHideFlags: 0
@@ -961,7 +952,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300110, guid: 568ae798622abc94a8fa660e323c84de, type: 3}
+  m_Sprite: {fileID: 21300132, guid: 568ae798622abc94a8fa660e323c84de, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
