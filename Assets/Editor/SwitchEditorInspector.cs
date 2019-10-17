@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
+using UnityEditor.SceneManagement;
 
 [CustomEditor(typeof(Switch))]//적용시킬 스크립트의 이름을 적는다.
 [CanEditMultipleObjects]
@@ -12,11 +13,10 @@ public class SwitchEditorInspector : Editor
     public static bool switchButtonBackground = false;
     public static bool switchButton = false;
 
-    public float test;
-
     void OnEnable()
     {
         _editor = target as Switch;
+        _editor.Awake();
     }
 
     public override void OnInspectorGUI()
@@ -25,51 +25,73 @@ public class SwitchEditorInspector : Editor
 
         if (switchButtonBackground = EditorGUILayout.Foldout(switchButtonBackground, "SwitchBackground"))
         {   
-            EditorGUILayout.Space();
-
             GUILayout.Label("Transform", EditorStyles.boldLabel);
-            _editor.switchButtonBackground.backgroundWidth = EditorGUILayout.Slider("BackgroundWidth", 1f,0f,2f);
-            _editor.switchButtonBackground.backgroundHeight = EditorGUILayout.Slider("BackgroundHeight", 1f, 0f, 2f);
+            _editor.switchBackground.sizeDelta = EditorGUILayout.Vector2Field(new GUIContent("BackgroundSize", ""), _editor.switchBackground.sizeDelta);
+            _editor.switchBackground.anchoredPosition = EditorGUILayout.Vector2Field(new GUIContent("BackgroundPos", ""), _editor.switchBackground.anchoredPosition);
 
             EditorGUILayout.Space();
+
+            GUILayout.Label("Color", EditorStyles.boldLabel);
+            _editor.onBackgroundColor = EditorGUILayout.ColorField("OnColor", _editor.onBackgroundColor);
+            _editor.offBackgroundColor = EditorGUILayout.ColorField("OffColor", _editor.offBackgroundColor);
+
+            if (_editor.isOn) _editor.backgrounImageColor.color = _editor.onBackgroundColor;
+            else _editor.backgrounImageColor.color = _editor.offBackgroundColor;
 
             GUILayout.Label("Icon", EditorStyles.boldLabel);
             _editor.switchButtonBackground.backgroundIconUse = EditorGUILayout.Toggle("BackgroundIconUse", _editor.switchButtonBackground.backgroundIconUse);
             if (_editor.switchButtonBackground.backgroundIconUse)
             {
+                if(_editor.onBackgroundSwitchIcon.sprite == null)    _editor.onBackgroundSwitchIcon.gameObject.SetActive(false);
+                else if (_editor.onBackgroundSwitchIcon.sprite != null) _editor.onBackgroundSwitchIcon.gameObject.SetActive(true);
+
+                if (_editor.offBackgroundSwitchIcon.sprite == null)    _editor.offBackgroundSwitchIcon.gameObject.SetActive(false);
+                else if (_editor.offBackgroundSwitchIcon.sprite != null) _editor.offBackgroundSwitchIcon.gameObject.SetActive(true);
+
                 EditorGUILayout.BeginHorizontal();
                 EditorGUILayout.PrefixLabel("OnIcon");
-                _editor.switchButtonBackground.onIcon = (Sprite)EditorGUILayout.ObjectField(_editor.switchButtonBackground.onIcon, typeof(Sprite), allowSceneObjects: true);
+                _editor.onBackgroundSwitchIcon.sprite = (Sprite)EditorGUILayout.ObjectField(_editor.onBackgroundSwitchIcon.sprite, typeof(Sprite), allowSceneObjects: true);
                 EditorGUILayout.EndHorizontal();
 
-                _editor.switchButtonBackground.onIconWidth = EditorGUILayout.FloatField(new GUIContent("OnIconWidth", ""), test);
-                _editor.switchButtonBackground.onIconHeight = EditorGUILayout.FloatField(new GUIContent("OnIconHeight", ""), _editor.switchButtonBackground.onIconHeight);
-
+                _editor.onBackgroundSwitchIconSize.sizeDelta = EditorGUILayout.Vector2Field(new GUIContent("OnBackgroundIconSize", ""), _editor.onBackgroundSwitchIconSize.sizeDelta);
+                _editor.onBackgroundSwitchIconSize.anchoredPosition = EditorGUILayout.Vector2Field(new GUIContent("OnBackgroundIconPos", ""), _editor.onBackgroundSwitchIconSize.anchoredPosition);
+   
                 EditorGUILayout.Space();
                 EditorGUILayout.Space();
 
                 EditorGUILayout.BeginHorizontal();
                 EditorGUILayout.PrefixLabel("OffIcon");
-                _editor.switchButtonBackground.offIcon = (Sprite)EditorGUILayout.ObjectField(_editor.switchButtonBackground.offIcon, typeof(Sprite), allowSceneObjects: true);
+                _editor.offBackgroundSwitchIcon.sprite = (Sprite)EditorGUILayout.ObjectField(_editor.offBackgroundSwitchIcon.sprite, typeof(Sprite), allowSceneObjects: true);
                 EditorGUILayout.EndHorizontal();
 
-                _editor.switchButtonBackground.offIconWidth = EditorGUILayout.FloatField(new GUIContent("OffIconWidth", ""), _editor.switchButtonBackground.offIconWidth);
-                _editor.switchButtonBackground.offIconHeight = EditorGUILayout.FloatField(new GUIContent("OffIconHeight", ""), _editor.switchButtonBackground.offIconHeight);
+                _editor.offBackgroundSwitchIconSize.sizeDelta = EditorGUILayout.Vector2Field(new GUIContent("OnBackgroundIconSize", ""), _editor.offBackgroundSwitchIconSize.sizeDelta);
+                _editor.offBackgroundSwitchIconSize.anchoredPosition = EditorGUILayout.Vector2Field(new GUIContent("OnBackgroundIconPos", ""), _editor.offBackgroundSwitchIconSize.anchoredPosition);
             }
-
-            GUILayout.Label("Color", EditorStyles.boldLabel);
-            _editor.switchButtonBackground.onColor = EditorGUILayout.ColorField("Onclor", Color.white);
-          //  _editor.backgrounImageColor.color= EditorGUILayout.ColorField("OffColor", _editor.switchButtonBackground.offColor);
-           // _editor.switchButtonBackground.offColor = _editor.backgrounImageColor.color;
+            else
+            {
+                _editor.onBackgroundSwitchIcon.gameObject.SetActive(false);
+                _editor.offBackgroundSwitchIcon.gameObject.SetActive(false);
+            }
         }
 
-        if (switchButtonBackground = EditorGUILayout.Foldout(switchButtonBackground, "SwitchButton"))
+        EditorGUILayout.Space();
+
+        if (switchButton = EditorGUILayout.Foldout(switchButton, "switchButton"))
         {
             EditorGUILayout.Space();
 
             GUILayout.Label("Transform", EditorStyles.boldLabel);
-            _editor.switchButton.buttonWidth = EditorGUILayout.Slider("ButtonWidth", 1f, 0f, 2f);
-            _editor.switchButton.buttonHeight = EditorGUILayout.Slider("ButtonHeight", 1f, 0f, 2f);
+            _editor.button.sizeDelta = EditorGUILayout.Vector2Field(new GUIContent("ButtonSize"), _editor.button.sizeDelta);
+            _editor.button.anchoredPosition = EditorGUILayout.Vector2Field(new GUIContent("ButtonPos"), _editor.button.anchoredPosition);         
+
+            EditorGUILayout.Space();
+
+            GUILayout.Label("Color", EditorStyles.boldLabel);
+            _editor.onSwitchColor = EditorGUILayout.ColorField("OnColor", _editor.onSwitchColor);
+            _editor.offSwitchColor = EditorGUILayout.ColorField("OffColor", _editor.offSwitchColor);
+
+            if (_editor.isOn) _editor.buttonColor.color = _editor.onSwitchColor;
+            else _editor.buttonColor.color = _editor.offSwitchColor;
 
             EditorGUILayout.Space();
 
@@ -77,57 +99,48 @@ public class SwitchEditorInspector : Editor
             _editor.switchButton.buttonIconUse = EditorGUILayout.Toggle("ButtonIconUse", _editor.switchButton.buttonIconUse);
             if (_editor.switchButton.buttonIconUse)
             {
+                if (_editor.onSwitchButtonIcon.sprite == null) _editor.onSwitchButtonIcon.gameObject.SetActive(false);
+                else if (_editor.onSwitchButtonIcon.sprite != null) _editor.onSwitchButtonIcon.gameObject.SetActive(true);
+
+                if (_editor.offSwitchButtonIcon.sprite == null) _editor.offSwitchButtonIcon.gameObject.SetActive(false);
+                else if (_editor.offSwitchButtonIcon.sprite != null) _editor.offSwitchButtonIcon.gameObject.SetActive(true);
+
                 EditorGUILayout.BeginHorizontal();
                 EditorGUILayout.PrefixLabel("OnIcon");
-                _editor.switchButton.onIcon = (Sprite)EditorGUILayout.ObjectField(_editor.switchButton.onIcon, typeof(Sprite), allowSceneObjects: true);
+                _editor.onSwitchButtonIcon.sprite = (Sprite)EditorGUILayout.ObjectField(_editor.onSwitchButtonIcon.sprite, typeof(Sprite), allowSceneObjects: true);
                 EditorGUILayout.EndHorizontal();
 
-                _editor.switchButton.onIconWidth = EditorGUILayout.FloatField(new GUIContent("OnIconWidth", ""), _editor.switchButton.buttonWidth);
-                _editor.switchButton.onIconHeight = EditorGUILayout.FloatField(new GUIContent("OnIconHeight", ""), _editor.switchButton.onIconHeight);
-
+                _editor.onSwitchButtonIconSize.sizeDelta = EditorGUILayout.Vector2Field(new GUIContent("OnBackgroundIconSize", ""), _editor.onSwitchButtonIconSize.sizeDelta);
+                _editor.onSwitchButtonIconSize.anchoredPosition = EditorGUILayout.Vector2Field(new GUIContent("OnBackgroundIconPos", ""), _editor.onSwitchButtonIconSize.anchoredPosition);
 
                 EditorGUILayout.Space();
                 EditorGUILayout.Space();
 
                 EditorGUILayout.BeginHorizontal();
                 EditorGUILayout.PrefixLabel("OffIcon");
-                _editor.switchButton.offIcon = (Sprite)EditorGUILayout.ObjectField(_editor.switchButton.offIcon, typeof(Sprite), allowSceneObjects: true);
+                _editor.offSwitchButtonIcon.sprite = (Sprite)EditorGUILayout.ObjectField(_editor.offSwitchButtonIcon.sprite, typeof(Sprite), allowSceneObjects: true);
                 EditorGUILayout.EndHorizontal();
 
-                _editor.switchButton.offIconWidth = EditorGUILayout.FloatField(new GUIContent("OffIconWidth", ""), _editor.switchButton.offIconWidth);
-                _editor.switchButton.offIconHeight = EditorGUILayout.FloatField(new GUIContent("OffIconHeight", ""), _editor.switchButton.offIconHeight);
+                _editor.offSwitchButtonIconSize.sizeDelta = EditorGUILayout.Vector2Field(new GUIContent("OnBackgroundIconSize", ""), _editor.offSwitchButtonIconSize.sizeDelta);
+                _editor.offSwitchButtonIconSize.anchoredPosition = EditorGUILayout.Vector2Field(new GUIContent("OnBackgroundIconPos", ""), _editor.offSwitchButtonIconSize.anchoredPosition);
             }
-
-            GUILayout.Label("Color", EditorStyles.boldLabel);
-
-           // Debug.Log(_editor.buttonColor.color);
-           // _editor.buttonColor.color = EditorGUILayout.ColorField("OffColor", _editor.switchButton.offColor);
-            
-          //  _editor.switchButton.offColor = _editor.buttonColor.color;
+            else
+            {
+                _editor.onSwitchButtonIcon.gameObject.SetActive(false);
+                _editor.offSwitchButtonIcon.gameObject.SetActive(false);
+            }
         }
-        
-        UseProperty("switchButtonBackground");
-        
-        if (GUI.changed)    //변경이 있을 시 적용된다. 이 코드가 없으면 인스펙터 창에서 변화는 있지만 적용은 되지 않는다.
+        EditorGUILayout.Space();
+
+        _editor.isOn = EditorGUILayout.Toggle("Switch On & Off", _editor.isOn);
+
+        _editor.moveDuration = EditorGUILayout.Slider(new GUIContent("moveDuration"), _editor.moveDuration, 0.0f, 10.0f);
+
+        if (GUI.changed)
+        {
             EditorUtility.SetDirty(target);
-
+            EditorSceneManager.MarkSceneDirty(EditorSceneManager.GetActiveScene());
+        }
         serializedObject.ApplyModifiedProperties();
-    }
-
-
-
-    void UseProperty(string propertyName)   //해당 변수를 원래의 pubilc 형태로 사용
-    {
-        //배열의 경우 이곳으로 불러오는 기능을 자체적으로 지원하지 않는다. 여러 방법이 있겠지만 이 방법을 쓰면 원래 쓰던 그대로를 가져올 수 있다.
-        SerializedProperty tps = serializedObject.FindProperty(propertyName);   //변수명을 입력해서 찾는다.
-        EditorGUI.BeginChangeCheck();   //Begin과 End로 값이 바뀌는 것을 검사한다.
-
-        EditorGUILayout.PropertyField(tps, true);   //변수에 맞는 필드 생성. 인자의 true부분은 includeChildren로써 자식에 해당하는 부분까지 모두 가져온다는 뜻이다.
-                                                    //만약 여기서 false를 하면 변수명 자체는 인스펙터 창에 뜨지만 배열항목이 아예 뜨지 않아 이름뿐인 항목이 된다.
-
-        if (EditorGUI.EndChangeCheck()) //여기까지 검사해서 필드에 변화가 있으면
-            serializedObject.ApplyModifiedProperties(); //원래 변수에 적용시킨다.
-
-        //툴팁의 경우 원래 스크립트의 있는 것을 가져온다.
     }
 }
