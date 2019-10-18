@@ -383,7 +383,7 @@ public class Switch : MonoBehaviour
         switchBackground = GetComponent<RectTransform>();
 
         switchLength = Math.Abs(switchBackground.sizeDelta.x * 0.5f);
-
+        //button.anchoredPosition = new Vector2(switchBackground.sizeDelta.x - Mathf.Abs(100 - Mathf.Abs(_editor.buttonStartPosTmp)), _editor.button.anchoredPosition.y);
         backgrounImageColor = GetComponent<Image>();
 
         onBackgroundSwitchIcon = transform.GetChild(0).transform.GetChild(0).GetComponent<Image>();
@@ -403,7 +403,6 @@ public class Switch : MonoBehaviour
         offSwitchButtonIcon = button.GetChild(1).GetComponent<Image>();
         onSwitchButtonIconSize = onSwitchButtonIcon.GetComponent<RectTransform>();
         offSwitchButtonIconSize = offSwitchButtonIcon.GetComponent<RectTransform>();
-
     }
 
     public void OnClickSwitch()

@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEditor;
 using UnityEditor.SceneManagement;
 
@@ -23,11 +21,22 @@ public class SwitchEditorInspector : Editor
     {
         serializedObject.Update();
 
+        //if (GUILayout.Button("Reset", GUILayout.FlexibleSpace()))
+        //{  https://docs.unity3d.com/ScriptReference/GUILayout.FlexibleSpace.html
+        //}  GUILayout.FlexibleSpace
+
+
         if (switchButtonBackground = EditorGUILayout.Foldout(switchButtonBackground, "SwitchBackground"))
         {   
             GUILayout.Label("Transform", EditorStyles.boldLabel);
             _editor.switchBackground.sizeDelta = EditorGUILayout.Vector2Field(new GUIContent("BackgroundSize", ""), _editor.switchBackground.sizeDelta);
             _editor.switchBackground.anchoredPosition = EditorGUILayout.Vector2Field(new GUIContent("BackgroundPos", ""), _editor.switchBackground.anchoredPosition);
+
+            EditorGUILayout.BeginHorizontal();
+
+            
+            EditorGUILayout.EndHorizontal();
+            
             EditorGUILayout.Space();
 
             GUILayout.Label("Color", EditorStyles.boldLabel);
@@ -99,12 +108,16 @@ public class SwitchEditorInspector : Editor
             _editor.buttonIconUse = EditorGUILayout.Toggle("ButtonIconUse", _editor.buttonIconUse);
             if (_editor.buttonIconUse)
             {
-                if (_editor.onSwitchButtonIcon.sprite == null) _editor.onSwitchButtonIcon.gameObject.SetActive(false);
-                else if (_editor.onSwitchButtonIcon.sprite != null) _editor.onSwitchButtonIcon.gameObject.SetActive(true);
-
-                if (_editor.offSwitchButtonIcon.sprite == null) _editor.offSwitchButtonIcon.gameObject.SetActive(false);
-                else if (_editor.offSwitchButtonIcon.sprite != null) _editor.offSwitchButtonIcon.gameObject.SetActive(true);
-
+                if (_editor.isOn)
+                {
+                    if (_editor.onSwitchButtonIcon.sprite == null) _editor.onSwitchButtonIcon.gameObject.SetActive(false);
+                    else if (_editor.onSwitchButtonIcon.sprite != null) _editor.onSwitchButtonIcon.gameObject.SetActive(true);
+                }
+                else
+                {
+                    if (_editor.offSwitchButtonIcon.sprite == null) _editor.offSwitchButtonIcon.gameObject.SetActive(false);
+                    else if (_editor.offSwitchButtonIcon.sprite != null) _editor.offSwitchButtonIcon.gameObject.SetActive(true);
+                }
                 EditorGUILayout.BeginHorizontal();
                 EditorGUILayout.PrefixLabel("OnIcon");
                 _editor.onSwitchButtonIcon.sprite = (Sprite)EditorGUILayout.ObjectField(_editor.onSwitchButtonIcon.sprite, typeof(Sprite), allowSceneObjects: true);
@@ -136,8 +149,8 @@ public class SwitchEditorInspector : Editor
         _editor.isOn = EditorGUILayout.Toggle("Switch On & Off", _editor.isOn);
 
 #if UNITY_EDITOR
-        if (_editor.isOn)  _editor.button.anchoredPosition = new Vector2(_editor.switchBackground.sizeDelta.x - Mathf.Abs(100 -Mathf.Abs(_editor.buttonStartPosTmp)), 0);
-        else _editor.button.anchoredPosition = new Vector2(_editor.buttonStartPosTmp, 0);
+        if (_editor.isOn)  _editor.button.anchoredPosition = new Vector2(_editor.switchBackground.sizeDelta.x - Mathf.Abs(100 -Mathf.Abs(_editor.buttonStartPosTmp)), _editor.button.anchoredPosition.y);
+        else _editor.button.anchoredPosition = new Vector2(_editor.buttonStartPosTmp, _editor.button.anchoredPosition.y);
 #endif
         _editor.moveDuration = EditorGUILayout.Slider(new GUIContent("moveDuration"), _editor.moveDuration, 0.0f, 10.0f);
 
