@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEditor;
 using UnityEditor.SceneManagement;
 
-[CustomEditor(typeof(Switch))]//적용시킬 스크립트의 이름을 적는다.
+[CustomEditor(typeof(Switch))]
 [CanEditMultipleObjects]
 public class SwitchEditorInspector : Editor
 {
@@ -28,7 +28,6 @@ public class SwitchEditorInspector : Editor
             GUILayout.Label("Transform", EditorStyles.boldLabel);
             _editor.switchBackground.sizeDelta = EditorGUILayout.Vector2Field(new GUIContent("BackgroundSize", ""), _editor.switchBackground.sizeDelta);
             _editor.switchBackground.anchoredPosition = EditorGUILayout.Vector2Field(new GUIContent("BackgroundPos", ""), _editor.switchBackground.anchoredPosition);
-
             EditorGUILayout.Space();
 
             GUILayout.Label("Color", EditorStyles.boldLabel);
@@ -39,8 +38,8 @@ public class SwitchEditorInspector : Editor
             else _editor.backgrounImageColor.color = _editor.offBackgroundColor;
 
             GUILayout.Label("Icon", EditorStyles.boldLabel);
-            _editor.switchButtonBackground.backgroundIconUse = EditorGUILayout.Toggle("BackgroundIconUse", _editor.switchButtonBackground.backgroundIconUse);
-            if (_editor.switchButtonBackground.backgroundIconUse)
+            _editor.backgroundIconUse = EditorGUILayout.Toggle("BackgroundIconUse", _editor.backgroundIconUse);
+            if (_editor.backgroundIconUse)
             {
                 if(_editor.onBackgroundSwitchIcon.sprite == null)    _editor.onBackgroundSwitchIcon.gameObject.SetActive(false);
                 else if (_editor.onBackgroundSwitchIcon.sprite != null) _editor.onBackgroundSwitchIcon.gameObject.SetActive(true);
@@ -82,8 +81,9 @@ public class SwitchEditorInspector : Editor
 
             GUILayout.Label("Transform", EditorStyles.boldLabel);
             _editor.button.sizeDelta = EditorGUILayout.Vector2Field(new GUIContent("ButtonSize"), _editor.button.sizeDelta);
-            _editor.button.anchoredPosition = EditorGUILayout.Vector2Field(new GUIContent("ButtonPos"), _editor.button.anchoredPosition);         
-
+            _editor.button.anchoredPosition = EditorGUILayout.Vector2Field(new GUIContent("ButtonPos"), _editor.button.anchoredPosition);
+            if(!_editor.isOn)
+            _editor.buttonStartPosTmp = _editor.button.anchoredPosition.x;
             EditorGUILayout.Space();
 
             GUILayout.Label("Color", EditorStyles.boldLabel);
@@ -96,8 +96,8 @@ public class SwitchEditorInspector : Editor
             EditorGUILayout.Space();
 
             GUILayout.Label("Icon", EditorStyles.boldLabel);
-            _editor.switchButton.buttonIconUse = EditorGUILayout.Toggle("ButtonIconUse", _editor.switchButton.buttonIconUse);
-            if (_editor.switchButton.buttonIconUse)
+            _editor.buttonIconUse = EditorGUILayout.Toggle("ButtonIconUse", _editor.buttonIconUse);
+            if (_editor.buttonIconUse)
             {
                 if (_editor.onSwitchButtonIcon.sprite == null) _editor.onSwitchButtonIcon.gameObject.SetActive(false);
                 else if (_editor.onSwitchButtonIcon.sprite != null) _editor.onSwitchButtonIcon.gameObject.SetActive(true);
@@ -130,10 +130,15 @@ public class SwitchEditorInspector : Editor
                 _editor.offSwitchButtonIcon.gameObject.SetActive(false);
             }
         }
+
         EditorGUILayout.Space();
 
         _editor.isOn = EditorGUILayout.Toggle("Switch On & Off", _editor.isOn);
 
+#if UNITY_EDITOR
+        if (_editor.isOn)  _editor.button.anchoredPosition = new Vector2(_editor.switchBackground.sizeDelta.x - Mathf.Abs(100 -Mathf.Abs(_editor.buttonStartPosTmp)), 0);
+        else _editor.button.anchoredPosition = new Vector2(_editor.buttonStartPosTmp, 0);
+#endif
         _editor.moveDuration = EditorGUILayout.Slider(new GUIContent("moveDuration"), _editor.moveDuration, 0.0f, 10.0f);
 
         if (GUI.changed)

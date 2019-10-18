@@ -313,77 +313,19 @@ using UnityEngine;
 using UnityEngine.UI;
 
 [System.Serializable]
-public class SwitchButtonBackground
-{
-    [Header("TransForm")]
-    [Range(0, 2)]
-    public float backgroundWidth = 1f;
-    [Range(0, 2)]
-    public float backgroundHeight = 1;
-
-    [Header("Icon")]
-    public bool backgroundIconUse;
-    public Sprite onIcon;
-    [Range(0, 2)]
-    public float ofnIconWidth;
-    [Range(0, 2)]
-    public float onIconHeight;
-
-    [Range(0, 2)]
-    public float offIconWidth;
-    public Sprite offIcon;
-    [Range(0, 2)]
-    public float onIconWidth;
-    [Range(0, 2)]
-    public float offIconHeight;
-
-    [Header("Color")]
-    public Color onColor = Color.white;
-    public Color offColor = Color.white;
-}
-
-[System.Serializable]
-public class SwitchButton
-{
-    [Header("TransForm")]
-    [Range(0, 2)]
-    public float buttonWidth = 1f;
-    [Range(0, 2)]
-    public float buttonHeight = 1f;
-    [Range(0, 1)]
-    public float buttonStartPosition = 1f;
-
-    [Header("Icon")]
-    public bool buttonIconUse;
-    public Sprite onIcon;
-    [Range(0, 2)]
-    public float ofnIconWidth;
-    [Range(0, 2)]
-    public float onIconHeight;
-
-    [Range(0, 2)]
-    public float offIconWidth;
-    public Sprite offIcon;
-    [Range(0, 2)]
-    public float onIconWidth;
-    [Range(0, 2)]
-    public float offIconHeight;
-
-    [Header("Color")]
-    public Color onColor = Color.white;
-    public Color offColor = Color.white;
-}
-
-[System.Serializable]
 public class Switch : MonoBehaviour
 {
     [SerializeField]
-    public SwitchButtonBackground switchButtonBackground;
-
     public RectTransform switchBackground;
-    private float switchWidth;      //
-    private float switchHeight;     //
+    [SerializeField]
+    public float switchLength;
+    [SerializeField]
+    public float switchStartPos;
+    [SerializeField]
+    public float switchGoalPos;
 
+    [SerializeField]
+    public bool backgroundIconUse;
     [SerializeField]
     public Image backgrounImageColor;
     [SerializeField]
@@ -401,14 +343,12 @@ public class Switch : MonoBehaviour
     public RectTransform offBackgroundSwitchIconSize;
 
 
-    [SerializeField]
-    public SwitchButton switchButton;
 
+    [SerializeField]
+    public bool buttonIconUse;
     private RectTransform buttonArea;
     [SerializeField]
     public RectTransform button;
-    private float buttonWidth;      //
-    private float buttonHeight;     //
 
     [SerializeField]
     public Image buttonColor;
@@ -429,16 +369,20 @@ public class Switch : MonoBehaviour
     Coroutine moveHandleCoroutine;
     Coroutine changeBackgroundColorCoroutine;
 
+    [SerializeField]
     public bool isOn;
 
     [SerializeField]
     public float moveDuration = 3f;
 
+    [SerializeField]
+    public float buttonStartPosTmp;
+
     public void Awake()
-    {    
+    {
         switchBackground = GetComponent<RectTransform>();
-        switchWidth = switchBackground.sizeDelta.x * 0.5f * (1 / switchButtonBackground.backgroundWidth);  //
-        switchHeight = switchBackground.sizeDelta.y * 0.5f * (1 / switchButtonBackground.backgroundHeight); //
+
+        switchLength = Math.Abs(switchBackground.sizeDelta.x * 0.5f);
 
         backgrounImageColor = GetComponent<Image>();
 
@@ -448,92 +392,31 @@ public class Switch : MonoBehaviour
         onBackgroundSwitchIconSize = onBackgroundSwitchIcon.GetComponent<RectTransform>();
         offBackgroundSwitchIconSize = offBackgroundSwitchIcon.GetComponent<RectTransform>();
 
+
         buttonArea = transform.GetChild(2).GetComponent<RectTransform>();
         button = buttonArea.GetChild(0).GetComponent<RectTransform>();
+        switchStartPos = button.anchoredPosition.x;
 
         buttonColor = button.GetComponent<Image>();
-
-        buttonWidth = button.GetComponent<RectTransform>().sizeDelta.x * (1 / switchButton.buttonWidth);    //
-        buttonHeight = button.GetComponent<RectTransform>().sizeDelta.y * (1 / switchButton.buttonHeight);  //
 
         onSwitchButtonIcon = button.GetChild(0).GetComponent<Image>();
         offSwitchButtonIcon = button.GetChild(1).GetComponent<Image>();
         onSwitchButtonIconSize = onSwitchButtonIcon.GetComponent<RectTransform>();
         offSwitchButtonIconSize = offSwitchButtonIcon.GetComponent<RectTransform>();
 
-        SwitchStateCheck();
-    }
-
-    private void SwitchStateCheck()
-    {
-        if (isOn)
-        {
-            backgrounImageColor.color = switchButtonBackground.onColor;
-            button.offsetMax = new Vector2(switchWidth, 0);
-            button.offsetMin = new Vector2(switchWidth, 0);
-        }
-
-        if (switchButtonBackground.backgroundIconUse)
-        {
-            onBackgroundSwitchIcon.sprite = switchButtonBackground.onIcon;
-            offBackgroundSwitchIcon.sprite = switchButtonBackground.offIcon;
-           // onBackgroundSwitchIconSize.localScale = new Vector2(switchButtonBackground.iconScale, switchButtonBackground.iconScale);
-           // offBackgroundSwitchIconSize.localScale = new Vector2(switchButtonBackground.iconScale, switchButtonBackground.iconScale);
-
-            if (onBackgroundSwitchIcon.sprite != null) onBackgroundSwitchIcon.gameObject.SetActive(true);
-            else onBackgroundSwitchIcon.gameObject.SetActive(false);
-
-
-            if (offBackgroundSwitchIcon.sprite != null) offBackgroundSwitchIcon.gameObject.SetActive(true);
-            else offBackgroundSwitchIcon.gameObject.SetActive(false);
-        }
-
-        if (switchButton.buttonIconUse)
-        {
-            onSwitchButtonIcon.sprite = switchButton.onIcon;
-            offSwitchButtonIcon.sprite = switchButton.offIcon;
-
-          //  onSwitchButtonIconSize.localScale = new Vector2(switchButton.iconScale, switchButton.iconScale);
-           // offSwitchButtonIconSize.localScale = new Vector2(switchButton.iconScale, switchButton.iconScale);
-
-            CheckSwitchButtonIcon();
-        }
-
-    }
-
-    private void CheckSwitchButtonIcon()
-    {
-        if (isOn)
-        {
-            if (onSwitchButtonIcon.sprite != null) onSwitchButtonIcon.gameObject.SetActive(true);
-            else onSwitchButtonIcon.gameObject.SetActive(false);
-            offSwitchButtonIcon.gameObject.SetActive(false);
-        }
-        else
-        {
-            onSwitchButtonIcon.gameObject.SetActive(false);
-            if (offSwitchButtonIcon.sprite != null) offSwitchButtonIcon.gameObject.SetActive(true);
-            else offSwitchButtonIcon.gameObject.SetActive(false);
-        }
     }
 
     public void OnClickSwitch()
     {
         isOn = !isOn;
 
-        //CheckSwitchButtonIcon();
+        Vector2 fromPosition = button.anchoredPosition;
+        Vector2 toPosition = (isOn) ? new Vector2(switchBackground.sizeDelta.x - Mathf.Abs(100 - Mathf.Abs(buttonStartPosTmp)),0) : new Vector2(buttonStartPosTmp, 0);
+        Vector2 distance = toPosition - fromPosition;
 
-        Vector2 fromPositionRight = new Vector2(button.anchoredPosition.x,0);
-        Vector2 fromPositionLeft = new Vector2(button.offsetMin.x, 0);
+        //
 
-        Vector2 toPositionRight = (isOn) ? new Vector2(switchWidth, 0) : new Vector2(0, 0);
-        Vector2 toPositionLeft = (isOn) ? new Vector2(switchWidth, 0) : new Vector2(0, 0);
-
-        Vector2 distanceRight = toPositionRight - fromPositionRight;
-        Vector2 distanceLeft = toPositionLeft - fromPositionLeft;
-
-        float ratio = Mathf.Abs((distanceRight.x + distanceLeft.x) / 2) / switchWidth;
-
+        float ratio = Mathf.Abs(distance.x) / switchBackground.sizeDelta.x;
         float duration = moveDuration * ratio;
 
         if (moveHandleCoroutine != null)
@@ -541,34 +424,28 @@ public class Switch : MonoBehaviour
             StopCoroutine(moveHandleCoroutine);
             moveHandleCoroutine = null;
         }
-        moveHandleCoroutine = StartCoroutine(moveHandle(fromPositionRight, fromPositionLeft, toPositionRight, toPositionLeft, duration));
+        moveHandleCoroutine = StartCoroutine(moveHandle(fromPosition, toPosition, duration));
+
+        //Background Color Change Coroutine
 
         Color fromColor = backgrounImageColor.color;
-        Color toColor = (isOn) ? switchButtonBackground.onColor : switchButtonBackground.offColor;
-
+        Color toColor = (isOn) ? onBackgroundColor : offBackgroundColor;
         if (changeBackgroundColorCoroutine != null)
         {
             StopCoroutine(changeBackgroundColorCoroutine);
             changeBackgroundColorCoroutine = null;
         }
         changeBackgroundColorCoroutine = StartCoroutine(changeBackgroundColor(fromColor, toColor, duration));
-
     }
 
-    IEnumerator moveHandle(Vector2 fromPositionRight, Vector2 fromPositionLeft, Vector2 toPositionRight, Vector2 toPositionLeft, float duration)
+    IEnumerator moveHandle(Vector2 fromPosition, Vector2 toPosition, float duration)
     {
         float currentTime = 0f;
-        while (currentTime <= duration)
+        while (currentTime < duration)
         {
             float t = currentTime / duration;
-            if (float.IsNaN(t))
-            {
-                t = 1;
-            }
-            Vector2 newPositionRight = Vector2.Lerp(fromPositionRight, toPositionRight, t);
-            Vector2 newPositionLeft = Vector2.Lerp(fromPositionLeft, toPositionLeft, t);
-            button.offsetMax = newPositionRight;
-            button.offsetMin = newPositionLeft;
+            Vector2 newPosition = Vector2.Lerp(fromPosition, toPosition, t);
+            button.anchoredPosition = newPosition;
 
             currentTime += Time.deltaTime;
             yield return null;
