@@ -113,13 +113,13 @@ TextureImporter:
   lightmap: 0
   compressionQuality: 50
   spriteMode: 2
-  spriteExtrude: 8
-  spriteMeshType: 1
+  spriteExtrude: 0
+  spriteMeshType: 0
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
   spritePixelsToUnits: 100
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
-  spriteGenerateFallbackPhysicsShape: 1
+  spriteGenerateFallbackPhysicsShape: 0
   alphaUsage: 1
   alphaIsTransparency: 1
   spriteTessellationDetail: -1
@@ -176,7 +176,7 @@ TextureImporter:
         height: 126
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
+      border: {x: 40, y: 32, z: 40, w: 32}
       outline: []
       physicsShape: []
       tessellationDetail: 0
@@ -190,13 +190,13 @@ TextureImporter:
       name: "\uBB34\uC81C-1_1"
       rect:
         serializedVersion: 2
-        x: 320
-        y: 1320
-        width: 109
-        height: 109
+        x: 322
+        y: 1322
+        width: 106
+        height: 106
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
+      border: {x: 32, y: 32, z: 32, w: 32}
       outline: []
       physicsShape: []
       tessellationDetail: 0
@@ -1051,7 +1051,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 1031
-        y: 336
+        y: 337
         width: 189
         height: 99
       alignment: 0
@@ -1127,32 +1127,12 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: "\uBB34\uC81C-1_60"
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 0
-        width: 2000
-        height: 177
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: c9e375b3eb1246049807784b1e8d65a9
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
       name: "\uBB34\uC81C-1_61"
       rect:
         serializedVersion: 2
         x: 75
         y: 75
-        width: 34
+        width: 99
         height: 100
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
@@ -1162,26 +1142,6 @@ TextureImporter:
       tessellationDetail: 0
       bones: []
       spriteID: 41851d3e95e3c5c489049356e004c9dc
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: "\uBB34\uC81C-1_62"
-      rect:
-        serializedVersion: 2
-        x: 141
-        y: 75
-        width: 34
-        height: 100
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 787af47c5f40db94e9a203b98f7f8143
       vertices: []
       indices: 
       edges: []
@@ -1202,26 +1162,6 @@ TextureImporter:
       tessellationDetail: 0
       bones: []
       spriteID: 8330f857fa01f304185ee0486d85cf44
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: "\uBB34\uC81C-1_64"
-      rect:
-        serializedVersion: 2
-        x: 644
-        y: 73
-        width: 34
-        height: 104
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: f4362ce2da6a4474c939c3df070f0d82
       vertices: []
       indices: 
       edges: []
@@ -1252,7 +1192,7 @@ TextureImporter:
         serializedVersion: 2
         x: 1077
         y: 75
-        width: 34
+        width: 100
         height: 101
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
@@ -1262,26 +1202,6 @@ TextureImporter:
       tessellationDetail: 0
       bones: []
       spriteID: b718cdf1a5f8d884f9bb3bbe225d4b43
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: "\uBB34\uC81C-1_67"
-      rect:
-        serializedVersion: 2
-        x: 1144
-        y: 75
-        width: 34
-        height: 101
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: eb4aaf7c9636adb43b55e021b6d1d0f9
       vertices: []
       indices: 
       edges: []
@@ -1311,8 +1231,8 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 1580
-        y: 75
-        width: 34
+        y: 76
+        width: 100
         height: 100
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
@@ -1322,26 +1242,6 @@ TextureImporter:
       tessellationDetail: 0
       bones: []
       spriteID: 09ef80ead78b9ee41b6c88dadbad6e6a
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: "\uBB34\uC81C-1_70"
-      rect:
-        serializedVersion: 2
-        x: 1646
-        y: 75
-        width: 35
-        height: 100
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: f7e27a708ef481b4aa72468f6396f3d4
       vertices: []
       indices: 
       edges: []
@@ -1362,6 +1262,26 @@ TextureImporter:
       tessellationDetail: 0
       bones: []
       spriteID: 3a066ac9b9b871b4e8133a9387aa122b
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "\uBB34\uC81C-1_41"
+      rect:
+        serializedVersion: 2
+        x: 577
+        y: 73
+        width: 100
+        height: 103
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bb38313c167c8c648a30489cf3b1caf0
       vertices: []
       indices: 
       edges: []

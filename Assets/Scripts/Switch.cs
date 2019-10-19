@@ -316,16 +316,12 @@ using UnityEngine.UI;
 public class Switch : MonoBehaviour
 {
     [SerializeField]
-    public RectTransform switchBackground;
+    public RectTransform switchRectTr;
     [SerializeField]
-    public float switchLength;
-    [SerializeField]
-    public float switchStartPos;
-    [SerializeField]
-    public float switchGoalPos;
+    public float switchScale = 1f;
 
     [SerializeField]
-    public bool backgroundIconUse;
+    public Sprite backgrounImage;
     [SerializeField]
     public Image backgrounImageColor;
     [SerializeField]
@@ -333,6 +329,8 @@ public class Switch : MonoBehaviour
     [SerializeField]
     public Color offBackgroundColor = Color.white;
 
+    [SerializeField]
+    public bool backgroundIconUse;
     [SerializeField]
     public Image onBackgroundSwitchIcon;
     [SerializeField]
@@ -343,12 +341,10 @@ public class Switch : MonoBehaviour
     public RectTransform offBackgroundSwitchIconSize;
 
 
-
-    [SerializeField]
-    public bool buttonIconUse;
-    private RectTransform buttonArea;
     [SerializeField]
     public RectTransform button;
+    [SerializeField]
+    public float buttonStartPos = 1f;
 
     [SerializeField]
     public Image buttonColor;
@@ -357,6 +353,8 @@ public class Switch : MonoBehaviour
     [SerializeField]
     public Color offSwitchColor = Color.white;
 
+    [SerializeField]
+    public bool buttonIconUse;
     [SerializeField]
     public Image onSwitchButtonIcon;
     [SerializeField]
@@ -368,6 +366,7 @@ public class Switch : MonoBehaviour
 
     Coroutine moveHandleCoroutine;
     Coroutine changeBackgroundColorCoroutine;
+    Coroutine changeButtonColorCoroutine;
 
     [SerializeField]
     public bool isOn;
@@ -375,27 +374,21 @@ public class Switch : MonoBehaviour
     [SerializeField]
     public float moveDuration = 3f;
 
-    [SerializeField]
-    public float buttonStartPosTmp;
+    private float buttonStartPosTmp;
 
     public void Awake()
     {
-        switchBackground = GetComponent<RectTransform>();
-
-        switchLength = Math.Abs(switchBackground.sizeDelta.x * 0.5f);
+        switchRectTr = GetComponent<RectTransform>();
 
         backgrounImageColor = GetComponent<Image>();
 
         onBackgroundSwitchIcon = transform.GetChild(0).transform.GetChild(0).GetComponent<Image>();
         offBackgroundSwitchIcon = transform.GetChild(1).transform.GetChild(0).GetComponent<Image>();
-
         onBackgroundSwitchIconSize = onBackgroundSwitchIcon.GetComponent<RectTransform>();
         offBackgroundSwitchIconSize = offBackgroundSwitchIcon.GetComponent<RectTransform>();
 
 
-        buttonArea = transform.GetChild(2).GetComponent<RectTransform>();
-        button = buttonArea.GetChild(0).GetComponent<RectTransform>();
-        switchStartPos = button.anchoredPosition.x;
+        button = transform.GetChild(2).GetChild(0).GetComponent<RectTransform>();
 
         buttonColor = button.GetComponent<Image>();
 
@@ -404,19 +397,30 @@ public class Switch : MonoBehaviour
         onSwitchButtonIconSize = onSwitchButtonIcon.GetComponent<RectTransform>();
         offSwitchButtonIconSize = offSwitchButtonIcon.GetComponent<RectTransform>();
 
+        buttonStartPosTmp = buttonStartPos *25f;
     }
 
     public void OnClickSwitch()
     {
         isOn = !isOn;
 
+        if (isOn)
+        {
+            onSwitchButtonIcon.gameObject.SetActive(true);
+            offSwitchButtonIcon.gameObject.SetActive(false);
+        }
+        else
+        {
+            onSwitchButtonIcon.gameObject.SetActive(false);
+            offSwitchButtonIcon.gameObject.SetActive(true);
+        }
+
         Vector2 fromPosition = button.anchoredPosition;
-        Vector2 toPosition = (isOn) ? new Vector2(switchBackground.sizeDelta.x - Mathf.Abs(100 - Mathf.Abs(buttonStartPosTmp)),0) : new Vector2(buttonStartPosTmp, 0);
+        Vector2 toPosition = (isOn) ? new Vector2(switchRectTr.sizeDelta.x - buttonStartPos * 25f, 0) : new Vector2(buttonStartPosTmp, 0);
         Vector2 distance = toPosition - fromPosition;
 
-        //
 
-        float ratio = Mathf.Abs(distance.x) / switchBackground.sizeDelta.x;
+        float ratio = Mathf.Abs(distance.x) / switchRectTr.sizeDelta.x;
         float duration = moveDuration * ratio;
 
         if (moveHandleCoroutine != null)
@@ -426,16 +430,43 @@ public class Switch : MonoBehaviour
         }
         moveHandleCoroutine = StartCoroutine(moveHandle(fromPosition, toPosition, duration));
 
-        //Background Color Change Coroutine
-
-        Color fromColor = backgrounImageColor.color;
-        Color toColor = (isOn) ? onBackgroundColor : offBackgroundColor;
+        Color fromBackgroundColor = backgrounImageColor.color;
+        Color toBackgroundColor = (isOn) ? onBackgroundColor : offBackgroundColor;
         if (changeBackgroundColorCoroutine != null)
         {
             StopCoroutine(changeBackgroundColorCoroutine);
             changeBackgroundColorCoroutine = null;
         }
-        changeBackgroundColorCoroutine = StartCoroutine(changeBackgroundColor(fromColor, toColor, duration));
+        changeBackgroundColorCoroutine = StartCoroutine(changeBackgroundColor(fromBackgroundColor, toBackgroundColor, duration));
+
+
+        Color fromButtonColor = buttonColor.color;
+        Color toButtonColor = (isOn) ? onSwitchColor : offSwitchColor;
+        if (changeButtonColorCoroutine != null)
+        {
+            StopCoroutine(changeButtonColorCoroutine);
+            changeButtonColorCoroutine = null;
+        }
+        changeButtonColorCoroutine = StartCoroutine(changeButtonColor(fromButtonColor, toButtonColor, duration));
+    }
+
+    IEnumerator changeButtonColor(Color fromColor, Color toColor, float duration)
+    {
+        float currentTime = 0f;
+        while (currentTime < duration)
+        {
+            float t = currentTime / duration;
+            if (float.IsNaN(t))
+            {
+                t = 1;
+            }
+            Color newColor = Color.Lerp(fromColor, toColor, t);
+
+            buttonColor.color = newColor;
+
+            currentTime += Time.deltaTime;
+            yield return null;
+        }
     }
 
     IEnumerator moveHandle(Vector2 fromPosition, Vector2 toPosition, float duration)
