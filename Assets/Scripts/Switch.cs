@@ -1,4 +1,5 @@
-﻿#if UNITY_EDITOR
+﻿/*
+#if UNITY_EDITOR
 using UnityEditor;
 #endif
 using System;
@@ -13,11 +14,12 @@ public class SwitchButtonBackground
     [Range(0, 2)]
     public float backgroundWidth = 1f;
     [Range(0, 2)]
-    public float backgroundHeight = 1f;
+    public float backgroundHeight = 1;
 
     [Header("Icon")]
     public bool backgroundIconUse;
     public Sprite onIcon;
+
     [Range(0, 2)]
     public float onIconHeight;
     [Range(0, 2)]
@@ -59,10 +61,10 @@ public class SwitchButton
 }
 
 [ExecuteInEditMode]
-public class TEST : MonoBehaviour
+public class Switch : MonoBehaviour
 {
     [SerializeField]
-    private SwitchButtonBackground switchButtonBackground;
+    public SwitchButtonBackground switchButtonBackground;
 
     private RectTransform switchBackground;
     private float switchWidth;
@@ -73,7 +75,8 @@ public class TEST : MonoBehaviour
     private RectTransform onBackgroundSwitchIconSize;
     private RectTransform offBackgroundSwitchIconSize;
 
-    private Image backgrounImageColor;
+    [SerializeField]
+    public Image backgrounImageColor;
 
     [SerializeField]
     private SwitchButton switchButton;
@@ -223,6 +226,8 @@ public class TEST : MonoBehaviour
 #endif
     }
 
+
+
     public void onClickSwitch()
     {
         isOn = !isOn;
@@ -275,6 +280,203 @@ public class TEST : MonoBehaviour
             Vector2 newPositionLeft = Vector2.Lerp(fromPositionLeft, toPositionLeft, t);
             button.offsetMax = newPositionRight;
             button.offsetMin = newPositionLeft;
+
+            currentTime += Time.deltaTime;
+            yield return null;
+        }
+    }
+
+    IEnumerator changeBackgroundColor(Color fromColor, Color toColor, float duration)
+    {
+        float currentTime = 0f;
+        while (currentTime < duration)
+        {
+            float t = currentTime / duration;
+            if (float.IsNaN(t))
+            {
+                t = 1;
+            }
+            Color newColor = Color.Lerp(fromColor, toColor, t);
+
+            backgrounImageColor.color = newColor;
+
+            currentTime += Time.deltaTime;
+            yield return null;
+        }
+    }
+}
+*/
+
+using System;
+using System.Collections;
+using UnityEngine;
+using UnityEngine.UI;
+
+[System.Serializable]
+public class Switch : MonoBehaviour
+{
+    [SerializeField]
+    public RectTransform switchRectTr;
+    [SerializeField]
+    public float switchScale = 1f;
+
+    [SerializeField]
+    public Sprite backgrounImage;
+    [SerializeField]
+    public Image backgrounImageColor;
+    [SerializeField]
+    public Color onBackgroundColor = Color.white;
+    [SerializeField]
+    public Color offBackgroundColor = Color.white;
+
+    [SerializeField]
+    public bool backgroundIconUse;
+    [SerializeField]
+    public Image onBackgroundSwitchIcon;
+    [SerializeField]
+    public Image offBackgroundSwitchIcon;
+    [SerializeField]
+    public RectTransform onBackgroundSwitchIconSize;
+    [SerializeField]
+    public RectTransform offBackgroundSwitchIconSize;
+
+
+    [SerializeField]
+    public RectTransform button;
+    [SerializeField]
+    public float buttonStartPos = 1f;
+
+    [SerializeField]
+    public Image buttonColor;
+    [SerializeField]
+    public Color onSwitchColor = Color.white;
+    [SerializeField]
+    public Color offSwitchColor = Color.white;
+
+    [SerializeField]
+    public bool buttonIconUse;
+    [SerializeField]
+    public Image onSwitchButtonIcon;
+    [SerializeField]
+    public Image offSwitchButtonIcon;
+    [SerializeField]
+    public RectTransform onSwitchButtonIconSize;
+    [SerializeField]
+    public RectTransform offSwitchButtonIconSize;
+
+    Coroutine moveHandleCoroutine;
+    Coroutine changeBackgroundColorCoroutine;
+    Coroutine changeButtonColorCoroutine;
+
+    [SerializeField]
+    public bool isOn;
+
+    [SerializeField]
+    public float moveDuration = 3f;
+
+    private float buttonStartPosTmp;
+
+    public void Awake()
+    {
+        switchRectTr = GetComponent<RectTransform>();
+
+        backgrounImageColor = GetComponent<Image>();
+
+        onBackgroundSwitchIcon = transform.GetChild(0).transform.GetChild(0).GetComponent<Image>();
+        offBackgroundSwitchIcon = transform.GetChild(1).transform.GetChild(0).GetComponent<Image>();
+        onBackgroundSwitchIconSize = onBackgroundSwitchIcon.GetComponent<RectTransform>();
+        offBackgroundSwitchIconSize = offBackgroundSwitchIcon.GetComponent<RectTransform>();
+
+
+        button = transform.GetChild(2).GetChild(0).GetComponent<RectTransform>();
+
+        buttonColor = button.GetComponent<Image>();
+
+        onSwitchButtonIcon = button.GetChild(0).GetComponent<Image>();
+        offSwitchButtonIcon = button.GetChild(1).GetComponent<Image>();
+        onSwitchButtonIconSize = onSwitchButtonIcon.GetComponent<RectTransform>();
+        offSwitchButtonIconSize = offSwitchButtonIcon.GetComponent<RectTransform>();
+
+        buttonStartPosTmp = buttonStartPos *25f;
+    }
+
+    public void OnClickSwitch()
+    {
+        isOn = !isOn;
+
+        if (isOn)
+        {
+            onSwitchButtonIcon.gameObject.SetActive(true);
+            offSwitchButtonIcon.gameObject.SetActive(false);
+        }
+        else
+        {
+            onSwitchButtonIcon.gameObject.SetActive(false);
+            offSwitchButtonIcon.gameObject.SetActive(true);
+        }
+
+        Vector2 fromPosition = button.anchoredPosition;
+        Vector2 toPosition = (isOn) ? new Vector2(switchRectTr.sizeDelta.x - buttonStartPos * 25f, 0) : new Vector2(buttonStartPosTmp, 0);
+        Vector2 distance = toPosition - fromPosition;
+
+
+        float ratio = Mathf.Abs(distance.x) / switchRectTr.sizeDelta.x;
+        float duration = moveDuration * ratio;
+
+        if (moveHandleCoroutine != null)
+        {
+            StopCoroutine(moveHandleCoroutine);
+            moveHandleCoroutine = null;
+        }
+        moveHandleCoroutine = StartCoroutine(moveHandle(fromPosition, toPosition, duration));
+
+        Color fromBackgroundColor = backgrounImageColor.color;
+        Color toBackgroundColor = (isOn) ? onBackgroundColor : offBackgroundColor;
+        if (changeBackgroundColorCoroutine != null)
+        {
+            StopCoroutine(changeBackgroundColorCoroutine);
+            changeBackgroundColorCoroutine = null;
+        }
+        changeBackgroundColorCoroutine = StartCoroutine(changeBackgroundColor(fromBackgroundColor, toBackgroundColor, duration));
+
+
+        Color fromButtonColor = buttonColor.color;
+        Color toButtonColor = (isOn) ? onSwitchColor : offSwitchColor;
+        if (changeButtonColorCoroutine != null)
+        {
+            StopCoroutine(changeButtonColorCoroutine);
+            changeButtonColorCoroutine = null;
+        }
+        changeButtonColorCoroutine = StartCoroutine(changeButtonColor(fromButtonColor, toButtonColor, duration));
+    }
+
+    IEnumerator changeButtonColor(Color fromColor, Color toColor, float duration)
+    {
+        float currentTime = 0f;
+        while (currentTime < duration)
+        {
+            float t = currentTime / duration;
+            if (float.IsNaN(t))
+            {
+                t = 1;
+            }
+            Color newColor = Color.Lerp(fromColor, toColor, t);
+
+            buttonColor.color = newColor;
+
+            currentTime += Time.deltaTime;
+            yield return null;
+        }
+    }
+
+    IEnumerator moveHandle(Vector2 fromPosition, Vector2 toPosition, float duration)
+    {
+        float currentTime = 0f;
+        while (currentTime < duration)
+        {
+            float t = currentTime / duration;
+            Vector2 newPosition = Vector2.Lerp(fromPosition, toPosition, t);
+            button.anchoredPosition = newPosition;
 
             currentTime += Time.deltaTime;
             yield return null;
