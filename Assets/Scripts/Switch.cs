@@ -404,15 +404,18 @@ public class Switch : MonoBehaviour
     {
         isOn = !isOn;
 
-        if (isOn)
+        if (buttonIconUse)
         {
-            onSwitchButtonIcon.gameObject.SetActive(true);
-            offSwitchButtonIcon.gameObject.SetActive(false);
-        }
-        else
-        {
-            onSwitchButtonIcon.gameObject.SetActive(false);
-            offSwitchButtonIcon.gameObject.SetActive(true);
+            if (isOn)
+            {
+                onSwitchButtonIcon.gameObject.SetActive(true);
+                offSwitchButtonIcon.gameObject.SetActive(false);
+            }
+            else
+            {
+                onSwitchButtonIcon.gameObject.SetActive(false);
+                offSwitchButtonIcon.gameObject.SetActive(true);
+            }
         }
 
         Vector2 fromPosition = button.anchoredPosition;

@@ -394,7 +394,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 25, y: 0}
-  m_SizeDelta: {x: 50, y: 50}
+  m_SizeDelta: {x: 30, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &506507339
 MonoBehaviour:
@@ -409,14 +409,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 0.9764151, b: 0.9764151, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300002, guid: 568ae798622abc94a8fa660e323c84de, type: 3}
+  m_Sprite: {fileID: 21300014, guid: 568ae798622abc94a8fa660e323c84de, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -609,8 +609,8 @@ MonoBehaviour:
   switchScale: 1
   backgrounImage: {fileID: 0}
   backgrounImageColor: {fileID: 1311822353}
-  onBackgroundColor: {r: 1, g: 1, b: 1, a: 1}
-  offBackgroundColor: {r: 0, g: 0, b: 0, a: 1}
+  onBackgroundColor: {r: 0, g: 0, b: 0, a: 1}
+  offBackgroundColor: {r: 1, g: 1, b: 1, a: 1}
   backgroundIconUse: 1
   onBackgroundSwitchIcon: {fileID: 1687898585}
   offBackgroundSwitchIcon: {fileID: 1315183389}
@@ -619,9 +619,9 @@ MonoBehaviour:
   button: {fileID: 506507338}
   buttonStartPos: 1
   buttonColor: {fileID: 506507339}
-  onSwitchColor: {r: 0, g: 0, b: 0, a: 1}
-  offSwitchColor: {r: 1, g: 1, b: 1, a: 1}
-  buttonIconUse: 1
+  onSwitchColor: {r: 0.6603774, g: 0.6603774, b: 0.6603774, a: 1}
+  offSwitchColor: {r: 1, g: 0.9764151, b: 0.9764151, a: 1}
+  buttonIconUse: 0
   onSwitchButtonIcon: {fileID: 124955745}
   offSwitchButtonIcon: {fileID: 1754073874}
   onSwitchButtonIconSize: {fileID: 124955744}
@@ -641,14 +641,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: 568ae798622abc94a8fa660e323c84de, type: 3}
+  m_Sprite: {fileID: 21300012, guid: 568ae798622abc94a8fa660e323c84de, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -919,7 +919,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1754073873
 RectTransform:
   m_ObjectHideFlags: 0
