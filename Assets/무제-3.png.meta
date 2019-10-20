@@ -226,11 +226,11 @@ TextureImporter:
         serializedVersion: 2
         x: 821
         y: 1320
-        width: 108
+        width: 107
         height: 108
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
-      border: {x: 54, y: 0, z: 53, w: 0}
+      border: {x: 53, y: 0, z: 53, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
@@ -384,13 +384,13 @@ TextureImporter:
       name: "\uBB34\uC81C-3_11"
       rect:
         serializedVersion: 2
-        x: 817
+        x: 818
         y: 1066
-        width: 115
+        width: 113
         height: 115
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
-      border: {x: 57, y: 0, z: 57, w: 0}
+      border: {x: 56, y: 0, z: 57, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0

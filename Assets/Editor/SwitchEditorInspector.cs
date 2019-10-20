@@ -10,11 +10,28 @@ public class SwitchEditorInspector : Editor
 
     public static bool switchButtonBackground = false;
     public static bool switchButton = false;
+    public static bool checkInfo = true;
+
+    private Vector2? switchSizeTmp = null;
+    private float? switchScaleTmp = null;
+    private Vector2? onSwitchIconSize = null;
+    private Vector2? onSwitchIconPos = null;
+    private Vector2? offSwitchIconSize = null;
+    private Vector2? offSwitchIconPos = null;
+
+    private Vector2? buttonSizeTmp = null;
+    private float?   buttonStartPosTmp = null;
+    private Vector2? onButtonIconSize = null;
+    private Vector2? onButtonIconPos = null;
+    private Vector2? offButtonIconSize = null;
+    private Vector2? offButtonIconPos = null;
+
 
     void OnEnable()
     {
         _editor = target as Switch;
         _editor.Awake();
+        CheckInfo();
     }
 
     public override void OnInspectorGUI()
@@ -45,8 +62,8 @@ public class SwitchEditorInspector : Editor
 
                 if (GUILayout.Button("Reset", GUILayout.MinHeight(35), GUILayout.MinWidth(40), GUILayout.MaxWidth(60)))
                 {
-                    _editor.switchRectTr.sizeDelta = new Vector2(100, 50);
-                    _editor.switchScale = 1f;
+                    _editor.switchRectTr.sizeDelta = (Vector2)switchSizeTmp;
+                    _editor.switchScale = (float)switchScaleTmp;
                 }
 
                 EditorGUILayout.EndHorizontal();
@@ -85,8 +102,8 @@ public class SwitchEditorInspector : Editor
 
                     if (GUILayout.Button("Reset", GUILayout.MinHeight(35), GUILayout.MinWidth(40), GUILayout.MaxWidth(60)))
                     {
-                        _editor.onBackgroundSwitchIconSize.sizeDelta = new Vector2(30, 30);
-                        _editor.onBackgroundSwitchIconSize.anchoredPosition = new Vector2(0, 0);
+                        _editor.onBackgroundSwitchIconSize.sizeDelta = (Vector2)onSwitchIconSize;
+                        _editor.onBackgroundSwitchIconSize.anchoredPosition = (Vector2)onSwitchIconPos;
                     }
 
                     EditorGUILayout.EndHorizontal();
@@ -100,13 +117,13 @@ public class SwitchEditorInspector : Editor
 
                     EditorGUILayout.BeginHorizontal();
                     EditorGUILayout.BeginVertical();
-                    _editor.offBackgroundSwitchIconSize.sizeDelta = EditorGUILayout.Vector2Field(new GUIContent("OnBackgroundIconSize", ""), _editor.offBackgroundSwitchIconSize.sizeDelta);
-                    _editor.offBackgroundSwitchIconSize.anchoredPosition = EditorGUILayout.Vector2Field(new GUIContent("OnBackgroundIconPos", ""), _editor.offBackgroundSwitchIconSize.anchoredPosition);
+                    _editor.offBackgroundSwitchIconSize.sizeDelta = EditorGUILayout.Vector2Field(new GUIContent("OffIconSize", ""), _editor.offBackgroundSwitchIconSize.sizeDelta);
+                    _editor.offBackgroundSwitchIconSize.anchoredPosition = EditorGUILayout.Vector2Field(new GUIContent("OffIconPos", ""), _editor.offBackgroundSwitchIconSize.anchoredPosition);
                     EditorGUILayout.EndVertical();
                     if (GUILayout.Button("Reset", GUILayout.MinHeight(35), GUILayout.MinWidth(40), GUILayout.MaxWidth(60)))
                     {
-                        _editor.offBackgroundSwitchIconSize.sizeDelta = new Vector2(30, 30);
-                        _editor.offBackgroundSwitchIconSize.anchoredPosition = new Vector2(0, 0);
+                        _editor.offBackgroundSwitchIconSize.sizeDelta = (Vector2)offSwitchIconSize;
+                        _editor.offBackgroundSwitchIconSize.anchoredPosition = (Vector2)offSwitchIconPos;
                     }
                     EditorGUILayout.EndHorizontal();
 
@@ -140,8 +157,8 @@ public class SwitchEditorInspector : Editor
 
                 if (GUILayout.Button("Reset", GUILayout.MinHeight(35), GUILayout.MinWidth(40), GUILayout.MaxWidth(60)))
                 {
-                    _editor.button.sizeDelta = new Vector2(50, 50);
-                    _editor.buttonStartPos = 1f;
+                    _editor.button.sizeDelta = (Vector2)buttonSizeTmp;
+                    _editor.buttonStartPos = (float)buttonStartPosTmp;
                 }
 
                 EditorGUILayout.EndHorizontal();
@@ -184,8 +201,8 @@ public class SwitchEditorInspector : Editor
                     GUILayout.EndVertical();
                     if (GUILayout.Button("Reset", GUILayout.MinHeight(35), GUILayout.MinWidth(40), GUILayout.MaxWidth(60)))
                     {
-                        _editor.onSwitchButtonIconSize.sizeDelta = new Vector2(30, 30);
-                        _editor.onSwitchButtonIconSize.anchoredPosition = new Vector2(0, 0);
+                        _editor.onSwitchButtonIconSize.sizeDelta = (Vector2)onButtonIconSize;
+                        _editor.onSwitchButtonIconSize.anchoredPosition = (Vector2)onButtonIconPos;
                     }
                     EditorGUILayout.EndHorizontal();
 
@@ -204,8 +221,8 @@ public class SwitchEditorInspector : Editor
                     GUILayout.EndVertical();
                     if (GUILayout.Button("Reset", GUILayout.MinHeight(35), GUILayout.MinWidth(40), GUILayout.MaxWidth(60)))
                     {
-                        _editor.offSwitchButtonIconSize.sizeDelta = new Vector2(30, 30);
-                        _editor.offSwitchButtonIconSize.anchoredPosition = new Vector2(0, 0);
+                        _editor.offSwitchButtonIconSize.sizeDelta = (Vector2)offButtonIconSize;
+                        _editor.offSwitchButtonIconSize.anchoredPosition = (Vector2)offButtonIconPos;
                     }
                     EditorGUILayout.EndHorizontal();
                 }
@@ -242,5 +259,22 @@ public class SwitchEditorInspector : Editor
             EditorSceneManager.MarkSceneDirty(EditorSceneManager.GetActiveScene());
         }
         serializedObject.ApplyModifiedProperties();
+    }
+
+    public void CheckInfo()
+    {
+        if (switchSizeTmp == null) switchSizeTmp = _editor.switchRectTr.sizeDelta;
+        if (switchScaleTmp == null) switchScaleTmp = _editor.switchRectTr.localScale.x;
+        if (onSwitchIconSize == null) onSwitchIconSize = _editor.onBackgroundSwitchIconSize.sizeDelta;
+        if (onSwitchIconPos == null) onSwitchIconPos = _editor.onBackgroundSwitchIconSize.anchoredPosition;
+        if (offSwitchIconSize == null) offSwitchIconSize = _editor.offBackgroundSwitchIconSize.sizeDelta;
+        if (offSwitchIconPos == null) offSwitchIconPos = _editor.offBackgroundSwitchIconSize.anchoredPosition;
+
+        if (buttonSizeTmp == null) buttonSizeTmp = _editor.button.sizeDelta;
+        if (buttonStartPosTmp == null) buttonStartPosTmp = _editor.buttonStartPos;
+        if (onButtonIconSize == null) onButtonIconSize = _editor.onSwitchButtonIconSize.sizeDelta;
+        if (onButtonIconPos == null) onButtonIconPos = _editor.onSwitchButtonIconSize.anchoredPosition;
+        if (offButtonIconSize == null) offButtonIconSize = _editor.offSwitchButtonIconSize.sizeDelta;
+        if (offButtonIconPos == null) offButtonIconPos = _editor.offSwitchButtonIconSize.anchoredPosition;
     }
 }
