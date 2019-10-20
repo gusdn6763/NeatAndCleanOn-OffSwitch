@@ -134,7 +134,7 @@ public class SwitchEditorInspector : Editor
                 EditorGUILayout.BeginVertical();
 
                 _editor.button.sizeDelta = EditorGUILayout.Vector2Field(new GUIContent("ButtonSize", ""), _editor.button.sizeDelta);
-                _editor.buttonStartPos = EditorGUILayout.Slider(new GUIContent("ButtonStartPos", ""), _editor.buttonStartPos, 0f, 1f);
+                _editor.buttonStartPos = EditorGUILayout.Slider(new GUIContent("ButtonStartPos", ""), _editor.buttonStartPos, 0f, 2f);
                 _editor.button.anchoredPosition = new Vector2((_editor.buttonStartPos * 25f)-50, _editor.button.anchoredPosition.y);
                 GUILayout.EndVertical();
 
