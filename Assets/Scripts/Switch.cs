@@ -397,7 +397,7 @@ public class Switch : MonoBehaviour
         onSwitchButtonIconSize = onSwitchButtonIcon.GetComponent<RectTransform>();
         offSwitchButtonIconSize = offSwitchButtonIcon.GetComponent<RectTransform>();
 
-        buttonStartPosTmp = buttonStartPos *25f;
+        buttonStartPosTmp = buttonStartPos * 25f;
     }
 
     public void OnClickSwitch()
@@ -421,7 +421,6 @@ public class Switch : MonoBehaviour
         Vector2 fromPosition = button.anchoredPosition;
         Vector2 toPosition = (isOn) ? new Vector2(switchRectTr.sizeDelta.x - buttonStartPos * 25f, 0) : new Vector2(buttonStartPosTmp, 0);
         Vector2 distance = toPosition - fromPosition;
-
 
         float ratio = Mathf.Abs(distance.x) / switchRectTr.sizeDelta.x;
         float duration = moveDuration * ratio;
