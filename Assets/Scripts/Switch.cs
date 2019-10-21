@@ -3,6 +3,11 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
+public interface ISwtich
+{
+
+}
+
 [System.Serializable]
 public class Switch : MonoBehaviour
 {
@@ -141,6 +146,8 @@ public class Switch : MonoBehaviour
             changeButtonColorCoroutine = null;
         }
         changeButtonColorCoroutine = StartCoroutine(changeButtonColor(fromButtonColor, toButtonColor, duration));
+
+
     }
 
     IEnumerator moveHandle(Vector2 fromPosition, Vector2 toPosition, float duration)
@@ -159,6 +166,8 @@ public class Switch : MonoBehaviour
             currentTime += Time.deltaTime;
             yield return null;
         }
+
+        switchIOnAction(isOn);
     }
 
     IEnumerator changeBackgroundColor(Color fromColor, Color toColor, float duration)
