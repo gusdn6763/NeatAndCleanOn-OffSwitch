@@ -618,9 +618,9 @@ PlayerSettings:
   facebookXfbml: 0
   facebookFrictionlessRequests: 1
   apiCompatibilityLevel: 6
-  cloudProjectId: 40dc2720-fbae-4c68-93a1-f0f91d2be26e
+  cloudProjectId: 700f4250-8b33-44d6-906f-35a643523ce6
   framebufferDepthMemorylessMode: 0
-  projectName: switch test
+  projectName: switch test (1)
   organizationId: gusdn6763
   cloudEnabled: 0
   enableNativePlatformBackendsForNewInputSystem: 0

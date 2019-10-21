@@ -204,9 +204,9 @@ TextureImporter:
       name: "\uBB34\uC81C-3_2"
       rect:
         serializedVersion: 2
-        x: 500
+        x: 499
         y: 1311
-        width: 251
+        width: 252
         height: 126
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
@@ -226,11 +226,11 @@ TextureImporter:
         serializedVersion: 2
         x: 821
         y: 1320
-        width: 107
+        width: 108
         height: 108
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
-      border: {x: 53, y: 0, z: 53, w: 0}
+      border: {x: 53, y: 0, z: 54, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
@@ -286,11 +286,11 @@ TextureImporter:
         serializedVersion: 2
         x: 1499
         y: 1310
-        width: 252
+        width: 251
         height: 127
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
-      border: {x: 126, y: 0, z: 126, w: 0}
+      border: {x: 125, y: 0, z: 126, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
@@ -304,13 +304,13 @@ TextureImporter:
       name: "\uBB34\uC81C-3_7"
       rect:
         serializedVersion: 2
-        x: 1821
+        x: 1822
         y: 1318
-        width: 108
+        width: 106
         height: 106
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
-      border: {x: 54, y: 0, z: 54, w: 0}
+      border: {x: 52, y: 0, z: 54, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
@@ -346,11 +346,11 @@ TextureImporter:
         serializedVersion: 2
         x: 318
         y: 1067
-        width: 113
+        width: 114
         height: 114
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
-      border: {x: 56, y: 57, z: 56, w: 57}
+      border: {x: 57, y: 57, z: 57, w: 57}
       outline: []
       physicsShape: []
       tessellationDetail: 0
@@ -385,9 +385,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 818
-        y: 1066
-        width: 113
-        height: 115
+        y: 1067
+        width: 114
+        height: 114
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 56, y: 0, z: 57, w: 0}
@@ -505,9 +505,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 312
-        y: 812
+        y: 811
         width: 125
-        height: 124
+        height: 125
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 61, y: 61, z: 63, w: 63}
@@ -546,7 +546,7 @@ TextureImporter:
         serializedVersion: 2
         x: 815
         y: 814
-        width: 119
+        width: 120
         height: 119
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
@@ -564,9 +564,9 @@ TextureImporter:
       name: "\uBB34\uC81C-3_20"
       rect:
         serializedVersion: 2
-        x: 1063
+        x: 1062
         y: 811
-        width: 124
+        width: 125
         height: 125
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
@@ -586,7 +586,7 @@ TextureImporter:
         serializedVersion: 2
         x: 1315
         y: 814
-        width: 119
+        width: 120
         height: 119
       alignment: 0
       pivot: {x: 0.5, y: 0.5}

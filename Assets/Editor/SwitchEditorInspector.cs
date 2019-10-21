@@ -137,7 +137,7 @@ public class SwitchEditorInspector : Editor
 
             EditorGUILayout.Space();
 
-            if (switchButton = EditorGUILayout.Foldout(switchButton, "switchButton"))
+            if (switchButton = EditorGUILayout.Foldout(switchButton, "SwitchButton"))
             {
                 GUILayout.Label("Sprite", EditorStyles.boldLabel);
                 EditorGUILayout.BeginHorizontal();
