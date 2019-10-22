@@ -3,11 +3,6 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
-public interface ISwtich
-{
-
-}
-
 [System.Serializable]
 public class Switch : MonoBehaviour
 {
@@ -72,6 +67,8 @@ public class Switch : MonoBehaviour
 
     private float buttonStartPosTmp;
 
+    public Action<bool> switchIsOn;
+
     public void Awake()
     {
         switchRectTr = GetComponent<RectTransform>();
@@ -104,13 +101,13 @@ public class Switch : MonoBehaviour
         {
             if (isOn)
             {
-                onSwitchButtonIcon.gameObject.SetActive(true);
+                if(onSwitchButtonIcon.sprite !=null) onSwitchButtonIcon.gameObject.SetActive(true);
                 offSwitchButtonIcon.gameObject.SetActive(false);
             }
             else
             {
                 onSwitchButtonIcon.gameObject.SetActive(false);
-                offSwitchButtonIcon.gameObject.SetActive(true);
+                if (offSwitchButtonIcon.sprite != null)  offSwitchButtonIcon.gameObject.SetActive(true);
             }
         }
 
@@ -165,6 +162,14 @@ public class Switch : MonoBehaviour
 
             currentTime += Time.deltaTime;
             yield return null;
+        }
+        try
+        {
+            switchIsOn(isOn);
+        }
+        catch
+        {
+            Debug.Log("Add your customized Functions!! :)");
         }
     }
 
