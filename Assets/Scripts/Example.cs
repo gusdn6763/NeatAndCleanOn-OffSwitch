@@ -8,6 +8,5 @@ public class Example : MonoBehaviour,ISwtich
 
     AudioSource audioSource;
 
-
     
 }

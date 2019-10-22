@@ -166,8 +166,6 @@ public class Switch : MonoBehaviour
             currentTime += Time.deltaTime;
             yield return null;
         }
-
-        switchIOnAction(isOn);
     }
 
     IEnumerator changeBackgroundColor(Color fromColor, Color toColor, float duration)
