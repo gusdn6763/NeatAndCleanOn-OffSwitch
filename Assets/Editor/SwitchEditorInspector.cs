@@ -10,7 +10,6 @@ public class SwitchEditorInspector : Editor
 
     public static bool switchButtonBackground = false;
     public static bool switchButton = false;
-    public static bool checkInfo = true;
 
     private Vector2? switchSizeTmp = null;
     private float? switchScaleTmp = null;
@@ -26,6 +25,8 @@ public class SwitchEditorInspector : Editor
     private Vector2? offButtonIconSize = null;
     private Vector2? offButtonIconPos = null;
 
+    public float switchScale = 1f;
+    public bool backgroundIconUse;
 
     void OnEnable()
     {
@@ -55,15 +56,15 @@ public class SwitchEditorInspector : Editor
                 EditorGUILayout.BeginVertical();
 
                 _editor.switchRectTr.sizeDelta = EditorGUILayout.Vector2Field(new GUIContent("SwtichSize", ""), _editor.switchRectTr.sizeDelta);
-                _editor.switchScale = EditorGUILayout.Slider(new GUIContent("SwitchScale", ""), _editor.switchScale, 0f, 5f);
-                _editor.switchRectTr.localScale = new Vector2(_editor.switchScale, _editor.switchScale);
+                switchScale = EditorGUILayout.Slider(new GUIContent("SwitchScale", ""), switchScale, 0f, 5f);
+                _editor.switchRectTr.localScale = new Vector2(switchScale, switchScale);
 
                 GUILayout.EndVertical();
 
                 if (GUILayout.Button("Reset", GUILayout.MinHeight(35), GUILayout.MinWidth(40), GUILayout.MaxWidth(60)))
                 {
                     _editor.switchRectTr.sizeDelta = (Vector2)switchSizeTmp;
-                    _editor.switchScale = (float)switchScaleTmp;
+                    switchScale = (float)switchScaleTmp;
                 }
 
                 EditorGUILayout.EndHorizontal();
@@ -78,9 +79,9 @@ public class SwitchEditorInspector : Editor
 
                 GUILayout.Label("Icon", EditorStyles.boldLabel);
 
-                _editor.backgroundIconUse = EditorGUILayout.Toggle("BackgroundIconUse", _editor.backgroundIconUse);
+                backgroundIconUse = EditorGUILayout.Toggle("BackgroundIconUse", backgroundIconUse);
 
-                if (_editor.backgroundIconUse)
+                if (backgroundIconUse)
                 {
                     if (_editor.onBackgroundSwitchIcon.sprite == null) _editor.onBackgroundSwitchIcon.gameObject.SetActive(false);
                     else if (_editor.onBackgroundSwitchIcon.sprite != null) _editor.onBackgroundSwitchIcon.gameObject.SetActive(true);

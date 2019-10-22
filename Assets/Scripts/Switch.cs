@@ -3,68 +3,40 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
-[System.Serializable]
 public class Switch : MonoBehaviour
 {
-    [SerializeField]
     public RectTransform switchRectTr;
-    [SerializeField]
-    public float switchScale = 1f;
 
-    [SerializeField]
     public Sprite backgrounImage;
-    [SerializeField]
     public Image backgrounImageColor;
-    [SerializeField]
     public Color onBackgroundColor = Color.white;
-    [SerializeField]
     public Color offBackgroundColor = Color.white;
 
-    [SerializeField]
-    public bool backgroundIconUse;
-    [SerializeField]
     public Image onBackgroundSwitchIcon;
-    [SerializeField]
     public Image offBackgroundSwitchIcon;
-    [SerializeField]
     public RectTransform onBackgroundSwitchIconSize;
-    [SerializeField]
     public RectTransform offBackgroundSwitchIconSize;
 
 
-    [SerializeField]
     public RectTransform button;
-    [SerializeField]
     public float buttonStartPos = 1f;
 
-    [SerializeField]
     public Image buttonColor;
-    [SerializeField]
     public Color onSwitchColor = Color.white;
-    [SerializeField]
     public Color offSwitchColor = Color.white;
 
-    [SerializeField]
     public bool buttonIconUse;
-    [SerializeField]
     public Image onSwitchButtonIcon;
-    [SerializeField]
     public Image offSwitchButtonIcon;
-    [SerializeField]
     public RectTransform onSwitchButtonIconSize;
-    [SerializeField]
     public RectTransform offSwitchButtonIconSize;
 
     Coroutine moveHandleCoroutine;
     Coroutine changeBackgroundColorCoroutine;
     Coroutine changeButtonColorCoroutine;
 
-    [SerializeField]
     public bool isOn;
-
-    [SerializeField]
     public float moveDuration = 3f;
-
     private float buttonStartPosTmp;
 
     public Action<bool> switchIsOn;
@@ -134,7 +106,6 @@ public class Switch : MonoBehaviour
         }
         changeBackgroundColorCoroutine = StartCoroutine(changeBackgroundColor(fromBackgroundColor, toBackgroundColor, duration));
 
-
         Color fromButtonColor = buttonColor.color;
         Color toButtonColor = (isOn) ? onSwitchColor : offSwitchColor;
         if (changeButtonColorCoroutine != null)
@@ -143,8 +114,6 @@ public class Switch : MonoBehaviour
             changeButtonColorCoroutine = null;
         }
         changeButtonColorCoroutine = StartCoroutine(changeButtonColor(fromButtonColor, toButtonColor, duration));
-
-
     }
 
     IEnumerator moveHandle(Vector2 fromPosition, Vector2 toPosition, float duration)
@@ -210,5 +179,4 @@ public class Switch : MonoBehaviour
             yield return null;
         }
     }
-
 }
