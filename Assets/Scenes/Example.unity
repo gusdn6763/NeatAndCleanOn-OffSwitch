@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657844, g: 0.49641222, b: 0.57481694, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -119,6 +119,96 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 519217780}
     m_Modifications:
+    - target: {fileID: 758012273831173931, guid: 195c15853c5dd494e95c4a50d3874b00,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -114.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 758012273831173931, guid: 195c15853c5dd494e95c4a50d3874b00,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 68
+      objectReference: {fileID: 0}
+    - target: {fileID: 758012273831173931, guid: 195c15853c5dd494e95c4a50d3874b00,
+        type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 200
+      objectReference: {fileID: 0}
+    - target: {fileID: 758012273831173931, guid: 195c15853c5dd494e95c4a50d3874b00,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 758012273831173931, guid: 195c15853c5dd494e95c4a50d3874b00,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 758012273831173931, guid: 195c15853c5dd494e95c4a50d3874b00,
+        type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 758012273977870172, guid: 195c15853c5dd494e95c4a50d3874b00,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 758012273977870178, guid: 195c15853c5dd494e95c4a50d3874b00,
+        type: 3}
+      propertyPath: backgroundIconUse
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 758012273977870178, guid: 195c15853c5dd494e95c4a50d3874b00,
+        type: 3}
+      propertyPath: buttonIconUse
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 758012273977870178, guid: 195c15853c5dd494e95c4a50d3874b00,
+        type: 3}
+      propertyPath: offBackgroundColor.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 758012273977870178, guid: 195c15853c5dd494e95c4a50d3874b00,
+        type: 3}
+      propertyPath: offBackgroundColor.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 758012273977870178, guid: 195c15853c5dd494e95c4a50d3874b00,
+        type: 3}
+      propertyPath: offBackgroundColor.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 758012273977870178, guid: 195c15853c5dd494e95c4a50d3874b00,
+        type: 3}
+      propertyPath: isOn
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 758012273977870178, guid: 195c15853c5dd494e95c4a50d3874b00,
+        type: 3}
+      propertyPath: onBackgroundColor.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 758012273977870178, guid: 195c15853c5dd494e95c4a50d3874b00,
+        type: 3}
+      propertyPath: onBackgroundColor.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 758012273977870178, guid: 195c15853c5dd494e95c4a50d3874b00,
+        type: 3}
+      propertyPath: onBackgroundColor.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 758012274093862612, guid: 195c15853c5dd494e95c4a50d3874b00,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 175
+      objectReference: {fileID: 0}
+    - target: {fileID: 758012274040511578, guid: 195c15853c5dd494e95c4a50d3874b00,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6496046494765996115, guid: 195c15853c5dd494e95c4a50d3874b00,
         type: 3}
       propertyPath: m_Name
@@ -230,31 +320,6 @@ PrefabInstance:
       value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 6496046494765996125, guid: 195c15853c5dd494e95c4a50d3874b00,
-        type: 3}
-      propertyPath: buttonIconUse
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 758012273831173931, guid: 195c15853c5dd494e95c4a50d3874b00,
-        type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: -114.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 758012273831173931, guid: 195c15853c5dd494e95c4a50d3874b00,
-        type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 68
-      objectReference: {fileID: 0}
-    - target: {fileID: 758012273977870172, guid: 195c15853c5dd494e95c4a50d3874b00,
-        type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 758012273977870178, guid: 195c15853c5dd494e95c4a50d3874b00,
-        type: 3}
-      propertyPath: backgroundIconUse
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 758012273977870178, guid: 195c15853c5dd494e95c4a50d3874b00,
         type: 3}
       propertyPath: buttonIconUse
       value: 0
@@ -405,7 +470,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7423b1a2096f72946bffcb17e98141dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isOn: 1
+  isOn: 0.921
 --- !u!114 &383719609
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class Switch : MonoBehaviour
 {
     public RectTransform switchRectTr;
+    public float switchScale = 1f;
 
     public Sprite backgrounImage;
     public Image backgrounImageColor;
@@ -34,6 +35,7 @@ public class Switch : MonoBehaviour
     Coroutine moveHandleCoroutine;
     Coroutine changeBackgroundColorCoroutine;
     Coroutine changeButtonColorCoroutine;
+
 
     public bool isOn;
     public float moveDuration = 3f;
