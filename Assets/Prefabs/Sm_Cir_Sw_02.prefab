@@ -443,9 +443,9 @@ RectTransform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 400, y: -25}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1666446183324553732
@@ -556,7 +556,6 @@ MonoBehaviour:
   backgrounImageColor: {fileID: 1666446183324553733}
   onBackgroundColor: {r: 1, g: 1, b: 1, a: 1}
   offBackgroundColor: {r: 1, g: 1, b: 1, a: 1}
-  backgroundIconUse: 0
   onBackgroundSwitchIcon: {fileID: 1666446181457195760}
   offBackgroundSwitchIcon: {fileID: 1666446183387704444}
   onBackgroundSwitchIconSize: {fileID: 1666446181457195761}

@@ -13,6 +13,7 @@ public class Switch : MonoBehaviour
     public Color onBackgroundColor = Color.white;
     public Color offBackgroundColor = Color.white;
 
+    public bool backgroundIconUse;
     public Image onBackgroundSwitchIcon;
     public Image offBackgroundSwitchIcon;
     public RectTransform onBackgroundSwitchIconSize;
@@ -70,6 +71,12 @@ public class Switch : MonoBehaviour
     public void OnClickSwitch()
     {
         isOn = !isOn;
+
+        if(backgroundIconUse)
+        {
+            if (onBackgroundSwitchIcon.sprite != null) onBackgroundSwitchIcon.gameObject.SetActive(true);
+            if (offBackgroundSwitchIcon.sprite != null) offBackgroundSwitchIcon.gameObject.SetActive(true);
+        }
 
         if (buttonIconUse)
         {

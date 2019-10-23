@@ -25,8 +25,6 @@ public class SwitchEditorInspector : Editor
     private Vector2? offButtonIconSize = null;
     private Vector2? offButtonIconPos = null;
 
-    
-    public bool backgroundIconUse;
 
     void OnEnable()
     {
@@ -59,9 +57,7 @@ public class SwitchEditorInspector : Editor
                 EditorGUILayout.BeginHorizontal();
                 EditorGUILayout.BeginVertical();
 
-                Debug.Log(_editor.switchRectTr.localScale.x);
                 _editor.switchRectTr.sizeDelta = EditorGUILayout.Vector2Field(new GUIContent("SwtichSize", ""), _editor.switchRectTr.sizeDelta);
-                Debug.Log(_editor.switchRectTr.localScale.x);
                 _editor.switchScale = EditorGUILayout.Slider(new GUIContent("SwitchScale", ""), _editor.switchScale, 0f, 5f);
                 _editor.switchRectTr.localScale = new Vector2(_editor.switchScale, _editor.switchScale);
 
@@ -85,9 +81,9 @@ public class SwitchEditorInspector : Editor
 
                 GUILayout.Label("Icon", EditorStyles.boldLabel);
 
-                backgroundIconUse = EditorGUILayout.Toggle("BackgroundIconUse", backgroundIconUse);
+                _editor.backgroundIconUse = EditorGUILayout.Toggle("BackgroundIconUse", _editor.backgroundIconUse);
 
-                if (backgroundIconUse)
+                if (_editor.backgroundIconUse)
                 {
                     if (_editor.onBackgroundSwitchIcon.sprite == null) _editor.onBackgroundSwitchIcon.gameObject.SetActive(false);
                     else if (_editor.onBackgroundSwitchIcon.sprite != null) _editor.onBackgroundSwitchIcon.gameObject.SetActive(true);
@@ -271,12 +267,7 @@ public class SwitchEditorInspector : Editor
     public void CheckInfo()
     {
         if (switchSizeTmp == null) switchSizeTmp = _editor.switchRectTr.sizeDelta;
-        if (switchScaleTmp == null)
-        {
-            switchScaleTmp = _editor.switchRectTr.localScale.x;
-            Debug.Log(switchScaleTmp);
-            Debug.Log(_editor.switchRectTr.localScale.x);
-        }
+        if (switchScaleTmp == null) switchScaleTmp = _editor.switchRectTr.localScale.x;
         if (onSwitchIconSize == null) onSwitchIconSize = _editor.onBackgroundSwitchIconSize.sizeDelta;
         if (onSwitchIconPos == null) onSwitchIconPos = _editor.onBackgroundSwitchIconSize.anchoredPosition;
         if (offSwitchIconSize == null) offSwitchIconSize = _editor.offBackgroundSwitchIconSize.sizeDelta;
