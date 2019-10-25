@@ -146,10 +146,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   switchRectTr: {fileID: 758012273831173931}
   switchScale: 1
-  backgrounImage: {fileID: 0}
   backgrounImageColor: {fileID: 758012273977870172}
   onBackgroundColor: {r: 1, g: 1, b: 1, a: 1}
   offBackgroundColor: {r: 1, g: 1, b: 1, a: 1}
+  backgroundIconUse: 0
   onBackgroundSwitchIcon: {fileID: 758012274720585594}
   offBackgroundSwitchIcon: {fileID: 758012274040511572}
   onBackgroundSwitchIconSize: {fileID: 758012274720585593}

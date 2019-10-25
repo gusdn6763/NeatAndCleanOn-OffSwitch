@@ -2,13 +2,15 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEditor;
+using System.Collections.Generic;
 
+[ExecuteInEditMode]
 public class Switch : MonoBehaviour
 {
     public RectTransform switchRectTr;
     public float switchScale = 1f;
 
-    public Sprite backgrounImage;
     public Image backgrounImageColor;
     public Color onBackgroundColor = Color.white;
     public Color offBackgroundColor = Color.white;
@@ -37,7 +39,6 @@ public class Switch : MonoBehaviour
     Coroutine changeBackgroundColorCoroutine;
     Coroutine changeButtonColorCoroutine;
 
-
     public bool isOn;
     public float moveDuration = 3f;
     private float buttonStartPosTmp;
@@ -49,7 +50,6 @@ public class Switch : MonoBehaviour
         switchRectTr = GetComponent<RectTransform>();
 
         backgrounImageColor = GetComponent<Image>();
-
         onBackgroundSwitchIcon = transform.GetChild(0).transform.GetChild(0).GetComponent<Image>();
         offBackgroundSwitchIcon = transform.GetChild(1).transform.GetChild(0).GetComponent<Image>();
         onBackgroundSwitchIconSize = onBackgroundSwitchIcon.GetComponent<RectTransform>();
@@ -72,7 +72,7 @@ public class Switch : MonoBehaviour
     {
         isOn = !isOn;
 
-        if(backgroundIconUse)
+        if (backgroundIconUse)
         {
             if (onBackgroundSwitchIcon.sprite != null) onBackgroundSwitchIcon.gameObject.SetActive(true);
             if (offBackgroundSwitchIcon.sprite != null) offBackgroundSwitchIcon.gameObject.SetActive(true);
@@ -82,13 +82,13 @@ public class Switch : MonoBehaviour
         {
             if (isOn)
             {
-                if(onSwitchButtonIcon.sprite !=null) onSwitchButtonIcon.gameObject.SetActive(true);
+                if (onSwitchButtonIcon.sprite != null) onSwitchButtonIcon.gameObject.SetActive(true);
                 offSwitchButtonIcon.gameObject.SetActive(false);
             }
             else
             {
                 onSwitchButtonIcon.gameObject.SetActive(false);
-                if (offSwitchButtonIcon.sprite != null)  offSwitchButtonIcon.gameObject.SetActive(true);
+                if (offSwitchButtonIcon.sprite != null) offSwitchButtonIcon.gameObject.SetActive(true);
             }
         }
 
