@@ -329,7 +329,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 30, y: 30}
+  m_SizeDelta: {x: 39.98, y: 2.4}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7685943599633725398
 CanvasRenderer:
@@ -550,10 +550,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   switchRectTr: {fileID: 7685943598386478865}
   switchScale: 1
-  backgrounImage: {fileID: 0}
-  backgrounImageColor: {fileID: 7685943599863001083}
+  backgrounImageAndColor: {fileID: 0}
   onBackgroundColor: {r: 1, g: 1, b: 1, a: 1}
   offBackgroundColor: {r: 1, g: 1, b: 1, a: 1}
+  backgroundIconUse: 0
   onBackgroundSwitchIcon: {fileID: 7685943599633725353}
   offBackgroundSwitchIcon: {fileID: 7685943598968444270}
   onBackgroundSwitchIconSize: {fileID: 7685943599633725352}

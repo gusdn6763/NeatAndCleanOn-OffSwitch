@@ -363,7 +363,7 @@ RectTransform:
   m_GameObject: {fileID: 8879516951894997203}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 0}
+  m_LocalScale: {x: 1, y: 0.5, z: 0}
   m_Children:
   - {fileID: 8879516952303201942}
   - {fileID: 8879516952473007406}
@@ -374,7 +374,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 200, y: 50}
+  m_SizeDelta: {x: 200.81, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8879516951894997199
 CanvasRenderer:
@@ -479,11 +479,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   switchRectTr: {fileID: 8879516952143404748}
-  switchScale: 0.5
-  backgrounImage: {fileID: 0}
-  backgrounImageColor: {fileID: 8879516951894997198}
+  switchScale: 0
+  backgrounImageAndColor: {fileID: 0}
   onBackgroundColor: {r: 1, g: 1, b: 1, a: 1}
   offBackgroundColor: {r: 1, g: 1, b: 1, a: 1}
+  backgroundIconUse: 0
   onBackgroundSwitchIcon: {fileID: 8879516951314588410}
   offBackgroundSwitchIcon: {fileID: 8879516951895884899}
   onBackgroundSwitchIconSize: {fileID: 8879516951314588413}

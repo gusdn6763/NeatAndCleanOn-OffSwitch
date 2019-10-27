@@ -2,16 +2,12 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEditor;
-using System.Collections.Generic;
 
-[ExecuteInEditMode]
 public class Switch : MonoBehaviour
 {
     public RectTransform switchRectTr;
-    public float switchScale = 1f;
 
-    public Image backgrounImageColor;
+    public Image backgrounImageAndColor;
     public Color onBackgroundColor = Color.white;
     public Color offBackgroundColor = Color.white;
 
@@ -23,7 +19,6 @@ public class Switch : MonoBehaviour
 
 
     public RectTransform button;
-    public float buttonStartPos = 1f;
 
     public Image buttonColor;
     public Color onSwitchColor = Color.white;
@@ -39,8 +34,10 @@ public class Switch : MonoBehaviour
     Coroutine changeBackgroundColorCoroutine;
     Coroutine changeButtonColorCoroutine;
 
+    [SerializeField]
     public bool isOn;
-    public float moveDuration = 3f;
+    [Range(0,10)]
+    public float moveDuration;
     private float buttonStartPosTmp;
 
     public Action<bool> switchIsOn;
@@ -49,11 +46,11 @@ public class Switch : MonoBehaviour
     {
         switchRectTr = GetComponent<RectTransform>();
 
-        backgrounImageColor = GetComponent<Image>();
+        backgrounImageAndColor = GetComponent<Image>();
         onBackgroundSwitchIcon = transform.GetChild(0).transform.GetChild(0).GetComponent<Image>();
         offBackgroundSwitchIcon = transform.GetChild(1).transform.GetChild(0).GetComponent<Image>();
-        onBackgroundSwitchIconSize = onBackgroundSwitchIcon.GetComponent<RectTransform>();
-        offBackgroundSwitchIconSize = offBackgroundSwitchIcon.GetComponent<RectTransform>();
+        onBackgroundSwitchIconSize = onBackgroundSwitchIcon.gameObject.GetComponent<RectTransform>();
+        offBackgroundSwitchIconSize = offBackgroundSwitchIcon.gameObject.GetComponent<RectTransform>();
 
 
         button = transform.GetChild(2).GetChild(0).GetComponent<RectTransform>();
@@ -65,7 +62,7 @@ public class Switch : MonoBehaviour
         onSwitchButtonIconSize = onSwitchButtonIcon.GetComponent<RectTransform>();
         offSwitchButtonIconSize = offSwitchButtonIcon.GetComponent<RectTransform>();
 
-        buttonStartPosTmp = buttonStartPos * 25f;
+        buttonStartPosTmp = button.anchoredPosition.x;
     }
 
     public void OnClickSwitch()
@@ -93,7 +90,8 @@ public class Switch : MonoBehaviour
         }
 
         Vector2 fromPosition = button.anchoredPosition;
-        Vector2 toPosition = (isOn) ? new Vector2(switchRectTr.sizeDelta.x - buttonStartPos * 25f, 0) : new Vector2(buttonStartPosTmp, 0);
+        Vector2 toPosition = (isOn) ? new Vector2(switchRectTr.sizeDelta.x - buttonStartPosTmp, 0) : new Vector2(buttonStartPosTmp, 0);
+
         Vector2 distance = toPosition - fromPosition;
 
         float ratio = Mathf.Abs(distance.x) / switchRectTr.sizeDelta.x;
@@ -106,7 +104,7 @@ public class Switch : MonoBehaviour
         }
         moveHandleCoroutine = StartCoroutine(moveHandle(fromPosition, toPosition, duration));
 
-        Color fromBackgroundColor = backgrounImageColor.color;
+        Color fromBackgroundColor = backgrounImageAndColor.color;
         Color toBackgroundColor = (isOn) ? onBackgroundColor : offBackgroundColor;
         if (changeBackgroundColorCoroutine != null)
         {
@@ -163,7 +161,7 @@ public class Switch : MonoBehaviour
             }
             Color newColor = Color.Lerp(fromColor, toColor, t);
 
-            backgrounImageColor.color = newColor;
+            backgrounImageAndColor.color = newColor;
 
             currentTime += Time.deltaTime;
             yield return null;
